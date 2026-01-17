@@ -1,4 +1,19 @@
 services:
+  redis:
+    image: redis:7
+    container_name: rag-redis
+    volumes:
+      - redis-data:/data
+    networks:
+      - rag-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      start_period: 5s
+      interval: 5s
+      retries: 5
+      timeout: 5s
+
   postgres:
     image: postgres:16
     container_name: rag-postgres
@@ -18,11 +33,53 @@ services:
       retries: 5
       timeout: 10s
 
+  qdrant:
+    image: qdrant/qdrant:v1.16.3
+    container_name: rag-qdrant
+    ports:
+      - "${QDRANT_PORT}:6333" # For Web UI access
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - rag-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/readyz"]
+      start_period: 30s
+      interval: 10s
+      retries: 5
+      timeout: 10s
+
+  redis-commander:
+    image: rediscommander/redis-commander
+    container_name: rag-redis-commander
+    ports:
+      - "${REDIS_COMMANDER_PORT}:8081"
+    environment:
+      - REDIS_HOSTS: "rag:redis:6379"
+    networks:
+      - rag-net
+    restart: unless-stopped
+    depends_on:
+      - redis
+
+  adminer:
+    image: adminer
+    container_name: rag-adminer
+    ports:
+      - "${ADMINER_PORT}:8080"
+    environment:
+      - ADMINER_DESIGN: dracula
+    networks:
+      - rag-net
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
 volumes:
   redis-data:
   postgres-data:
   qdrant-data:
-  minio-data:
 
 networks:
   rag-net:
