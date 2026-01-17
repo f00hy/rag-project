@@ -56,7 +56,7 @@ services:
     ports:
       - "${REDIS_COMMANDER_PORT}:8081"
     environment:
-      - REDIS_HOSTS: "rag:redis:6379"
+      REDIS_HOSTS: "rag:redis:6379"
     networks:
       - rag-net
     restart: unless-stopped
@@ -69,7 +69,7 @@ services:
     ports:
       - "${ADMINER_PORT}:8080"
     environment:
-      - ADMINER_DESIGN: dracula
+      ADMINER_DESIGN: dracula
     networks:
       - rag-net
     restart: unless-stopped
