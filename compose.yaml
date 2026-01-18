@@ -61,7 +61,8 @@ services:
       - rag-net
     restart: unless-stopped
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
 
   adminer:
     image: adminer
@@ -74,7 +75,8 @@ services:
       - rag-net
     restart: unless-stopped
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
 volumes:
   redis-data:
