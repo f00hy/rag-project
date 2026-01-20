@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# Python
+.venv
+.ruff_cache
+.python-version
+__pycache__
+
+# CI/CD
+.github
+.pre-commit-config.yaml
+
+# Docker
+Dockerfile
+Dockerfile.dev
+compose.yaml
+compose.dev.yaml
+infra.yaml
+.dockerignore
+
+# Environment files
+.env
+.env.example

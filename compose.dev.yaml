@@ -1,0 +1,27 @@
+include:
+  - infra.yaml
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: rag-dev
+    ports:
+      - "${DEV_PORT}:8000"
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./scripts:/app/scripts
+    networks:
+      - rag-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      start_period: 30s
+      interval: 10s
+      retries: 5
+      timeout: 10s
+
+networks:
+  rag-net:
