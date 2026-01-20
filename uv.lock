@@ -3892,11 +3892,13 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "commitizen" },
     { name = "deepeval" },
-    { name = "pre-commit" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
+]
+tool = [
+    { name = "commitizen" },
+    { name = "pre-commit" },
     { name = "ruff" },
     { name = "ty" },
     { name = "types-boto3" },
@@ -3922,11 +3924,13 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "commitizen", specifier = ">=4.11.6" },
     { name = "deepeval", specifier = ">=3.8.0" },
-    { name = "pre-commit", specifier = ">=4.5.1" },
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "pytest-asyncio", specifier = ">=1.3.0" },
+]
+tool = [
+    { name = "commitizen", specifier = ">=4.11.6" },
+    { name = "pre-commit", specifier = ">=4.5.1" },
     { name = "ruff", specifier = ">=0.14.13" },
     { name = "ty", specifier = ">=0.0.12" },
     { name = "types-boto3", specifier = ">=1.42.29" },
