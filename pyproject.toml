@@ -10,12 +10,12 @@ dependencies = [
     "chonkie>=1.5.2",
     "crawl4ai>=0.7.8",
     "fastapi[standard]>=0.128.0",
+    "fastembed>=0.7.4",
     "logfire>=4.18.0",
     "psycopg[binary]>=3.3.2",
     "pydantic-ai>=1.43.0",
     "qdrant-client>=1.16.2",
     "redis>=5.3.1",
-    "sentence-transformers>=5.2.0",
     "sqlmodel>=0.0.31",
     "tokenizer>=3.6.2",
 ]
