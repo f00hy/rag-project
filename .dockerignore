@@ -6,9 +6,7 @@
 .venv
 .ruff_cache
 .python-version
-
-# Documentation
-README.md
+__pycache__
 
 # CI/CD
 .github
@@ -16,8 +14,14 @@ README.md
 
 # Docker
 Dockerfile
+Dockerfile.dev
 compose.yaml
+compose.dev.yaml
 infra.yaml
+Dockerfile.dev.dockerignore
+
+# Database migrations
+alembic
 
 # Scripts
 scripts

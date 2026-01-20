@@ -37,4 +37,4 @@ EXPOSE 8000
 
 WORKDIR /app
 
-CMD ["fastapi", "run", "--host", "0.0.0.0", "--port", "8000", "main.py"]
+CMD ["fastapi", "run", "--host", "0.0.0.0", "--port", "8000", "src/main.py"]
