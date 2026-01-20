@@ -20,6 +20,12 @@ compose.dev.yaml
 infra.yaml
 .dockerignore
 
+# Database migrations
+alembic
+
+# Scripts
+scripts
+
 # Environment files
 .env
 .env.example
