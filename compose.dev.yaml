@@ -12,7 +12,6 @@ services:
     volumes:
       - ./src:/app/src
       - ./tests:/app/tests
-      - ./scripts:/app/scripts
     networks:
       - rag-net
     restart: unless-stopped
