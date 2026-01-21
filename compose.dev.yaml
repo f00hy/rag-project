@@ -10,7 +10,7 @@ services:
     ports:
       - "${DEV_PORT}:8000"
     volumes:
-      - ./src:/app/src
+      - ./app:/app/app
       - ./tests:/app/tests
     networks:
       - rag-net
