@@ -3,14 +3,12 @@
 .gitignore
 
 # Python
-.venv
-.ruff_cache
-.python-version
 __pycache__
+.venv
+.python-version
 
-# CI/CD
-.github
-.pre-commit-config.yaml
+# Ruff
+.ruff_cache
 
 # Docker
 Dockerfile
@@ -20,12 +18,22 @@ compose.dev.yaml
 infra.yaml
 .dockerignore
 
-# Database migrations
+# Database Migrations
 alembic
+
+# GitHub
+.github
+
+# Pre-commit
+.pre-commit-config.yaml
 
 # Scripts
 scripts
 
-# Environment files
+# Tests
+.pytest_cache
+.deepeval
+
+# Environment
 .env
 .env.example
