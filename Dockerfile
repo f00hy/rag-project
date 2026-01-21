@@ -5,7 +5,7 @@ FROM ghcr.io/astral-sh/uv:0.9-python3.12-trixie-slim AS builder
 
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
-ENV UV_NO_DEV=1
+ENV UV_NO_DEFAULT_GROUPS=1
 ENV UV_PYTHON_DOWNLOADS=0
 
 WORKDIR /app
