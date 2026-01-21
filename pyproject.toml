@@ -35,6 +35,9 @@ tool = [
     "types-redis>=4.6.0.20241004",
 ]
 
+[tool.uv]
+default-groups = ["dev", "tool"]
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "$version"
@@ -42,3 +45,14 @@ version_scheme = "pep440"
 version_provider = "uv"
 update_changelog_on_bump = true
 major_version_zero = true
+
+[project.scripts]
+# rag = ""
+
+[build-system]
+requires = ["uv_build>=0.9.25,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "app"
+module-root = ""
