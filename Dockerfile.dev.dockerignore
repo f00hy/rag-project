@@ -3,7 +3,7 @@
 .gitignore
 
 # Python
-__pycache__
+**/__pycache__
 .venv
 .python-version
 
@@ -31,8 +31,8 @@ alembic
 scripts
 
 # Tests
-.pytest_cache
-.deepeval
+**/.pytest_cache
+**/.deepeval
 
 # Environment
 .env

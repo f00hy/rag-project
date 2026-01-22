@@ -3,7 +3,7 @@
 .gitignore
 
 # Python
-__pycache__
+**/__pycache__
 .venv
 .python-version
 
@@ -32,8 +32,8 @@ scripts
 
 # Tests
 tests
-.pytest_cache
-.deepeval
+**/.pytest_cache
+**/.deepeval
 
 # Environment
 .env
