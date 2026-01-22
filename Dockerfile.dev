@@ -9,9 +9,8 @@ WORKDIR /app
 
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
-ENV UV_NO_DEFAULT_GROUPS=1
+ENV UV_NO_DEFAULT_GROUPS=true
 ENV UV_PYTHON_DOWNLOADS=0
-ENV UV_TOOL_BIN_DIR=/usr/local/bin
 
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
@@ -20,7 +19,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 COPY . /app
 
-RUN uv pip install -e . --no-deps
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --group dev
 
 ENV PATH="/app/.venv/bin:$PATH"
 
@@ -30,4 +30,4 @@ USER nonroot
 
 EXPOSE 8000
 
-CMD ["uv", "run", "fastapi", "dev", "--host", "0.0.0.0", "--port", "8000", "src/main.py"]
+CMD ["fastapi", "dev", "--host", "0.0.0.0", "--port", "8000", "app/main.py"]

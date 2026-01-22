@@ -5,7 +5,7 @@ FROM ghcr.io/astral-sh/uv:0.9-python3.12-trixie-slim AS builder
 
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
-ENV UV_NO_DEFAULT_GROUPS=1
+ENV UV_NO_DEFAULT_GROUPS=true
 ENV UV_PYTHON_DOWNLOADS=0
 
 WORKDIR /app
@@ -37,4 +37,4 @@ EXPOSE 8000
 
 WORKDIR /app
 
-CMD ["fastapi", "run", "--host", "0.0.0.0", "--port", "8000", "src/main.py"]
+CMD ["fastapi", "run", "--host", "0.0.0.0", "--port", "8000", "app/main.py"]
