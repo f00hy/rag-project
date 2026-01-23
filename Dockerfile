@@ -1,12 +1,15 @@
 # Reference: https://github.com/astral-sh/uv-docker-example/blob/main/multistage.Dockerfile
 
 # Build stage
-FROM ghcr.io/astral-sh/uv:0.9-python3.12-trixie-slim AS builder
+FROM dhi.io/python:3.12-debian13-dev AS builder
+
+COPY --from=ghcr.io/astral-sh/uv:0.9 /uv /uvx /bin/
 
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
 ENV UV_NO_DEFAULT_GROUPS=true
 ENV UV_PYTHON_DOWNLOADS=0
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
@@ -22,13 +25,11 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 
 # Runtime stage
-FROM python:3.12-slim-trixie
-
-RUN groupadd --system --gid 999 nonroot \
- && useradd --system --gid 999 --uid 999 --create-home nonroot
+FROM dhi.io/python:3.12-debian13
 
 COPY --from=builder --chown=nonroot:nonroot /app /app
 
+ENV PYTHONUNBUFFERED=1
 ENV PATH="/app/.venv/bin:$PATH"
 
 USER nonroot
