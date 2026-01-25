@@ -47,6 +47,17 @@ version_provider = "uv"
 update_changelog_on_bump = true
 major_version_zero = true
 
+[tool.pytest]
+addopts = [
+    "-v",
+    "-ra",
+    "--color=yes",
+    "--tb=short",
+    "--doctest-modules",
+    "--strict-markers"
+]
+testpaths = ["app", "tests"]
+
 [project.scripts]
 # rag = ""
 
