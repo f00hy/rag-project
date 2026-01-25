@@ -1,0 +1,70 @@
+name: CI
+description: "Lint and check format with Ruff, check type with ty, test with pytest, build and push with Docker"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-check-format-type:
+    name: Lint, check format, and check type
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.25"
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --locked --no-default-groups --group tool
+
+      - name: Check type with ty
+        run: uv run ty check --error-on-warning --output-format=github
+
+      - name: Lint with Ruff
+        run: uv run ruff check --output-format=github
+
+      - name: Check format with Ruff
+        run: uv run ruff format --diff
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.25"
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --locked --no-default-groups --group dev
+
+      - name: Test with pytest
+        run: uv run pytest --junitxml=test-report.xml --cov=app --cov-report=xml
+
+      - name: Publish test report
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }}
+        with:
+          name: Pytest Report
+          report-title: Pytest Report
+          path: test-report.xml
+          reporter: python-xunit
