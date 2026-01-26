@@ -102,7 +102,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}
+          images: ${{ vars.DOCKER_USERNAME }}/rag-app
           tags: |
             type=pep440,pattern={{version}}
             type=pep440,pattern={{major}}.{{minor}}
