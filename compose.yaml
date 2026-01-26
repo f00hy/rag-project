@@ -3,7 +3,7 @@ include:
 
 services:
   app:
-    build: .
+    image: f00hy/rag-app:main
     container_name: rag-app
     ports:
       - "${APP_PORT}:8000"
