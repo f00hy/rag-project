@@ -1,5 +1,4 @@
 name: CI
-description: "Lint and check format with Ruff, check type with ty, test with pytest, build and push with Docker"
 
 on:
   push:
@@ -8,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  lint-check-format-type:
-    name: Lint, check format, and check type
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -58,7 +57,7 @@ jobs:
         run: uv sync --locked --no-default-groups --group dev
 
       - name: Test with pytest
-        run: uv run pytest --junitxml=test-report.xml --cov=app --cov-report=xml
+        run: uv run pytest --junitxml=test-report.xml --cov
 
       - name: Publish test report
         uses: dorny/test-reporter@v2
@@ -68,3 +67,10 @@ jobs:
           report-title: Pytest Report
           path: test-report.xml
           reporter: python-xunit
+
+      - name: Publish coverage report
+        uses: py-cov-action/python-coverage-comment-action@v3
+        if: ${{ !cancelled() }}
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          ANNOTATE_MISSING_LINES: true

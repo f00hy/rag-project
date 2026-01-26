@@ -58,6 +58,11 @@ addopts = [
 ]
 testpaths = ["app", "tests"]
 
+[tool.coverage.run]
+barnch = true
+relative_files = true
+source = ["app"]
+
 [project.scripts]
 # rag = ""
 
