@@ -3975,7 +3975,7 @@ dependencies = [
     { name = "qdrant-client" },
     { name = "redis" },
     { name = "sqlmodel" },
-    { name = "tokenizer" },
+    { name = "tokenizers" },
 ]
 
 [package.dev-dependencies]
@@ -4008,7 +4008,7 @@ requires-dist = [
     { name = "qdrant-client", specifier = ">=1.16.2" },
     { name = "redis", specifier = ">=5.3.1" },
     { name = "sqlmodel", specifier = ">=0.0.31" },
-    { name = "tokenizer", specifier = ">=3.6.2" },
+    { name = "tokenizers", specifier = ">=0.22.2" },
 ]
 
 [package.metadata.requires-dev]
@@ -4819,15 +4819,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/28/c0/3c7a39ff68022ddfd7d93f3337ad90389a342f761c4d71de99a3ccc57857/tiktoken-0.12.0-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:54c891b416a0e36b8e2045b12b33dd66fb34a4fe7965565f1b482da50da3e86a", size = 1194908, upload-time = "2025-10-06T20:22:32.073Z" },
     { url = "https://files.pythonhosted.org/packages/ab/0d/c1ad6f4016a3968c048545f5d9b8ffebf577774b2ede3e2e352553b685fe/tiktoken-0.12.0-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:5edb8743b88d5be814b1a8a8854494719080c28faaa1ccbef02e87354fe71ef0", size = 1253706, upload-time = "2025-10-06T20:22:33.385Z" },
     { url = "https://files.pythonhosted.org/packages/af/df/c7891ef9d2712ad774777271d39fdef63941ffba0a9d59b7ad1fd2765e57/tiktoken-0.12.0-cp314-cp314t-win_amd64.whl", hash = "sha256:f61c0aea5565ac82e2ec50a05e02a6c44734e91b51c10510b084ea1b8e633a71", size = 920667, upload-time = "2025-10-06T20:22:34.444Z" },
-]
-
-[[package]]
-name = "tokenizer"
-version = "3.6.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e9/99/f8170b9c5029df79a5f8e3bd3dba136307e1291f8a872786d750f82668b5/tokenizer-3.6.2.tar.gz", hash = "sha256:60f6b7e389502bd076d0843c0f43987b3912620738cf8495b0015e536a524bb7", size = 132942, upload-time = "2025-12-12T15:59:14.58Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/96/23/fad15aa97fb3761cc89a7bed84b60cd25afae937bfac8eb2bf275adf0a67/tokenizer-3.6.2-py3-none-any.whl", hash = "sha256:60bab4bf36b155fe4d0935e01dfb04b27474b37b6c9b16c6dcef7d1e95428e2d", size = 83102, upload-time = "2025-12-12T15:59:13.129Z" },
 ]
 
 [[package]]
