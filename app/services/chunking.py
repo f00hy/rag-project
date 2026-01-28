@@ -2,7 +2,7 @@
 
 from chonkie import RecursiveChunker, OverlapRefinery
 from tokenizers import Tokenizer
-from pydantic import BaseModel
+from app.models import Chunk
 
 tokenizer = Tokenizer.from_pretrained("prithivida/Splade_PP_en_v1")
 
@@ -41,16 +41,7 @@ suffix_overlapper = OverlapRefinery(
 )
 
 
-class RelationalChunk(BaseModel):
-    """Wrapper for chunk with parent-child relationships."""
-
-    text: str
-    chunk_id: str
-    parent_id: str | None = None
-    child_ids: list[str] = []
-
-
-def chunk(text: str) -> tuple[list[RelationalChunk], list[RelationalChunk]]:
+def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
     """Chunk text into parent-child hierarchy.
 
     Args:
@@ -75,7 +66,7 @@ def chunk(text: str) -> tuple[list[RelationalChunk], list[RelationalChunk]]:
         suffix_ctx = suffix_chunks[parent_idx].context or ""
         full_text = prefix_ctx + parent_chunk.text + suffix_ctx
 
-        parent_wrapper = RelationalChunk(
+        parent_wrapper = Chunk(
             text=full_text,
             chunk_id=parent_id,
         )
@@ -85,7 +76,7 @@ def chunk(text: str) -> tuple[list[RelationalChunk], list[RelationalChunk]]:
         for child_chunk in child_chunks:
             child_id = f"c_{child_counter}"
             children.append(
-                RelationalChunk(
+                Chunk(
                     text=child_chunk.text,
                     chunk_id=child_id,
                     parent_id=parent_id,
