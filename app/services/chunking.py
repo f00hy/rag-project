@@ -4,7 +4,7 @@ from chonkie import RecursiveChunker, OverlapRefinery
 from tokenizers import Tokenizer
 from pydantic import BaseModel
 
-tokenizer = Tokenizer.from_pretrained("BAAI/bge-m3")
+tokenizer = Tokenizer.from_pretrained("prithivida/Splade_PP_en_v1")
 
 parent_chunker = RecursiveChunker.from_recipe(
     name="markdown",
