@@ -1,4 +1,4 @@
-"""Chunking service for parent-child hierarchical text chunking."""
+"""Text chunking service using hierarchical parent-child chunks with context overlap."""
 
 from chonkie import RecursiveChunker, OverlapRefinery
 from tokenizers import Tokenizer
@@ -42,13 +42,13 @@ suffix_overlapper = OverlapRefinery(
 
 
 def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
-    """Chunk text into parent-child hierarchy.
+    """Split text into parent chunks with prefix/suffix context and child chunks.
 
     Args:
-        text: Text to chunk
+        text: Input text to chunk.
 
     Returns:
-        Tuple of (parent_chunks, child_chunks)
+        Tuple of (parent_chunks, child_chunks) with relationships established.
     """
     parent_chunks = parent_chunker.chunk(text)
     prefix_chunks = prefix_overlapper.refine(parent_chunks)
@@ -61,7 +61,7 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
     for parent_idx, parent_chunk in enumerate(parent_chunks):
         parent_id = f"p_{parent_idx}"
 
-        # Add overlap context
+        # Create parent with overlapping context
         prefix_ctx = prefix_chunks[parent_idx].context or ""
         suffix_ctx = suffix_chunks[parent_idx].context or ""
         full_text = prefix_ctx + parent_chunk.text + suffix_ctx
@@ -71,7 +71,7 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
             chunk_id=parent_id,
         )
 
-        # Create children from original parent text (without overlap)
+        # Create children from original parent
         child_chunks = child_chunker.chunk(parent_chunk.text)
         for child_chunk in child_chunks:
             child_id = f"c_{child_counter}"
