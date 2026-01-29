@@ -3,14 +3,20 @@
 from chonkie import RecursiveChunker, OverlapRefinery
 from tokenizers import Tokenizer
 from app.models import Chunk
+from app.config import (
+    SPARSE_MODEL_NAME,
+    PARENT_CHUNK_SIZE,
+    CHILD_CHUNK_SIZE,
+    OVERLAP_CONTEXT_SIZE,
+)
 
-tokenizer = Tokenizer.from_pretrained("prithivida/Splade_PP_en_v1")
+tokenizer = Tokenizer.from_pretrained(SPARSE_MODEL_NAME)
 
 parent_chunker = RecursiveChunker.from_recipe(
     name="markdown",
     lang="en",
     tokenizer=tokenizer,
-    chunk_size=1024,
+    chunk_size=PARENT_CHUNK_SIZE,
     min_characters_per_chunk=12,
 )
 
@@ -18,13 +24,13 @@ child_chunker = RecursiveChunker.from_recipe(
     name="markdown",
     lang="en",
     tokenizer=tokenizer,
-    chunk_size=256,
+    chunk_size=CHILD_CHUNK_SIZE,
     min_characters_per_chunk=12,
 )
 
 prefix_overlapper = OverlapRefinery(
     tokenizer=tokenizer,
-    context_size=0.25,
+    context_size=OVERLAP_CONTEXT_SIZE,
     mode="token",
     method="prefix",
     merge=False,
@@ -33,7 +39,7 @@ prefix_overlapper = OverlapRefinery(
 
 suffix_overlapper = OverlapRefinery(
     tokenizer=tokenizer,
-    context_size=0.25,
+    context_size=OVERLAP_CONTEXT_SIZE,
     mode="token",
     method="suffix",
     merge=False,

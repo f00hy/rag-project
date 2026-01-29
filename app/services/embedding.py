@@ -2,9 +2,10 @@
 
 from fastembed import TextEmbedding, SparseTextEmbedding
 from app.models import Chunk, Embedding
+from app.config import DENSE_MODEL_NAME, SPARSE_MODEL_NAME
 
-dense_model = TextEmbedding(model_name="jinaai/jina-embeddings-v3")
-sparse_model = SparseTextEmbedding(model_name="prithivida/Splade_PP_en_v1")
+dense_model = TextEmbedding(model_name=DENSE_MODEL_NAME)
+sparse_model = SparseTextEmbedding(model_name=SPARSE_MODEL_NAME)
 
 
 def embed(chunks: list[Chunk]) -> list[Embedding]:
