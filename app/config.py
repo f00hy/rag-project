@@ -9,3 +9,4 @@ SPARSE_MODEL_NAME = "prithivida/Splade_PP_en_v1"
 
 # Indexing
 QDRANT_COLLECTION_NAME = "rag"
+QDRANT_PAYLOAD_INDEX_FIELD_NAME = "temp"
