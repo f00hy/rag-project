@@ -42,5 +42,5 @@ if not client.collection_exists(QDRANT_COLLECTION_NAME):
     )
 
 
-def get_qdrant_client() -> QdrantClient:
+def get_vector_db_client() -> QdrantClient:
     return client
