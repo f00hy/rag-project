@@ -7,7 +7,7 @@ from app.models import (
     Document,
 )  # https://sqlmodel.tiangolo.com/tutorial/create-db-and-table/#sqlmodel-metadata-order-matters
 
-engine: Engine = create_engine(getenv("SUPABASE_URL"))
+engine: Engine = create_engine(getenv("SUPABASE_URL") or "sqlite://")
 
 
 def init_relational_db() -> None:
