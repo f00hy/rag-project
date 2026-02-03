@@ -2,8 +2,7 @@ from os import getenv
 from qdrant_client import QdrantClient, models
 from app.config import (
     DENSE_MODEL_NAME,
-    QDRANT_COLLECTION_NAME,
-    QDRANT_PAYLOAD_INDEX_FIELD_NAME,
+    COLLECTION_NAME,
 )
 
 client = QdrantClient(
@@ -16,9 +15,9 @@ client = QdrantClient(
 
 
 def init_vector_db() -> None:
-    if not client.collection_exists(QDRANT_COLLECTION_NAME):
+    if not client.collection_exists(COLLECTION_NAME):
         client.create_collection(
-            collection_name=QDRANT_COLLECTION_NAME,
+            collection_name=COLLECTION_NAME,
             vectors_config={
                 "dense": models.VectorParams(
                     size=client.get_embedding_size(DENSE_MODEL_NAME),
@@ -35,10 +34,4 @@ def init_vector_db() -> None:
                 )
             },
             on_disk_payload=True,
-        )
-
-        client.create_payload_index(
-            collection_name=QDRANT_COLLECTION_NAME,
-            field_name=QDRANT_PAYLOAD_INDEX_FIELD_NAME,
-            field_schema=models.PayloadSchemaType.KEYWORD,
         )

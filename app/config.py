@@ -7,6 +7,5 @@ OVERLAP_CONTEXT_SIZE = 0.25
 DENSE_MODEL_NAME = "jinaai/jina-embeddings-v3"
 SPARSE_MODEL_NAME = "prithivida/Splade_PP_en_v1"
 
-# Indexing
-QDRANT_COLLECTION_NAME = "rag"
-QDRANT_PAYLOAD_INDEX_FIELD_NAME = "temp"
+# Infra
+COLLECTION_NAME = "child_chunk"
