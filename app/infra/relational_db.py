@@ -4,8 +4,9 @@ from os import getenv
 from sqlalchemy import Engine
 from sqlmodel import create_engine, SQLModel
 from app.models import (
-    Document,
-)  # https://sqlmodel.tiangolo.com/tutorial/create-db-and-table/#sqlmodel-metadata-order-matters
+    Document,  # noqa: F401
+    ParentChunk,  # noqa: F401
+)  # Imports needed for SQLModel metadata registration
 
 engine: Engine = create_engine(getenv("SUPABASE_URL") or "sqlite://")
 
