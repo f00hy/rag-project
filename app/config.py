@@ -7,5 +7,5 @@ OVERLAP_CONTEXT_SIZE: float = 0.25
 DENSE_MODEL_NAME: str = "jinaai/jina-embeddings-v3"
 SPARSE_MODEL_NAME: str = "prithivida/Splade_PP_en_v1"
 
-# Infra
+# Infrastructure
 COLLECTION_NAME: str = "child_chunk"
