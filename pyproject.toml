@@ -51,7 +51,6 @@ addopts = [
     "-ra",
     "--color=yes",
     "--tb=short",
-    "--doctest-modules",
     "--strict-markers"
 ]
 testpaths = ["app", "tests"]
