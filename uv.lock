@@ -542,6 +542,11 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/8c/13/e1314d12d3c4a10051f2722c2a437eeb6a574675b02c389da6745a11a945/chonkie-1.5.2-cp314-cp314-win_amd64.whl", hash = "sha256:f54b7b8aae45d81939040c30c2be84cff6a7a6fbd09192a7446fc16300ae32c0", size = 546377, upload-time = "2026-01-05T20:36:27.155Z" },
 ]
 
+[package.optional-dependencies]
+tokenizers = [
+    { name = "tokenizers" },
+]
+
 [[package]]
 name = "click"
 version = "8.2.1"
@@ -3946,6 +3951,11 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/08/13/8ce16f808297e16968269de44a14f4fef19b64d9766be1d6ba5ba78b579d/qdrant_client-1.16.2-py3-none-any.whl", hash = "sha256:442c7ef32ae0f005e88b5d3c0783c63d4912b97ae756eb5e052523be682f17d3", size = 377186, upload-time = "2025-12-12T10:58:29.282Z" },
 ]
 
+[package.optional-dependencies]
+fastembed = [
+    { name = "fastembed" },
+]
+
 [[package]]
 name = "questionary"
 version = "2.1.1"
@@ -3965,17 +3975,15 @@ source = { editable = "." }
 dependencies = [
     { name = "arq" },
     { name = "boto3" },
-    { name = "chonkie" },
+    { name = "chonkie", extra = ["tokenizers"] },
     { name = "crawl4ai" },
     { name = "fastapi", extra = ["standard"] },
-    { name = "fastembed" },
     { name = "logfire" },
     { name = "psycopg", extra = ["binary"] },
     { name = "pydantic-ai" },
-    { name = "qdrant-client" },
-    { name = "redis" },
+    { name = "qdrant-client", extra = ["fastembed"] },
+    { name = "redis", extra = ["hiredis"] },
     { name = "sqlmodel" },
-    { name = "tokenizers" },
 ]
 
 [package.dev-dependencies]
@@ -3998,17 +4006,15 @@ tool = [
 requires-dist = [
     { name = "arq", specifier = ">=0.26.3" },
     { name = "boto3", specifier = ">=1.42.29" },
-    { name = "chonkie", specifier = ">=1.5.2" },
+    { name = "chonkie", extras = ["tokenizers"], specifier = ">=1.5.2" },
     { name = "crawl4ai", specifier = ">=0.7.8" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.128.0" },
-    { name = "fastembed", specifier = ">=0.7.4" },
     { name = "logfire", specifier = ">=4.18.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.3.2" },
     { name = "pydantic-ai", specifier = ">=1.43.0" },
-    { name = "qdrant-client", specifier = ">=1.16.2" },
-    { name = "redis", specifier = ">=5.3.1" },
+    { name = "qdrant-client", extras = ["fastembed"], specifier = ">=1.16.2" },
+    { name = "redis", extras = ["hiredis"], specifier = ">=5.3.1" },
     { name = "sqlmodel", specifier = ">=0.0.31" },
-    { name = "tokenizers", specifier = ">=0.22.2" },
 ]
 
 [package.metadata.requires-dev]
