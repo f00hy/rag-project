@@ -761,6 +761,11 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/43/97/cecb942d60a79d20b4d718a17ef599aee80ce54c32f0f214a880f406b5b8/crawl4ai-0.8.0-py3-none-any.whl", hash = "sha256:0a822400a0968e1e92cc844ecc79a24873d61d801b4147c0ee23bc3d3ad34482", size = 453341, upload-time = "2026-01-16T10:40:13.617Z" },
 ]
 
+[package.optional-dependencies]
+pdf = [
+    { name = "pypdf" },
+]
+
 [[package]]
 name = "cryptography"
 version = "46.0.3"
@@ -3725,6 +3730,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pypdf"
+version = "6.6.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b8/bb/a44bab1ac3c54dbcf653d7b8bcdee93dddb2d3bf025a3912cacb8149a2f2/pypdf-6.6.2.tar.gz", hash = "sha256:0a3ea3b3303982333404e22d8f75d7b3144f9cf4b2970b96856391a516f9f016", size = 5281850, upload-time = "2026-01-26T11:57:55.964Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7d/be/549aaf1dfa4ab4aed29b09703d2fb02c4366fc1f05e880948c296c5764b9/pypdf-6.6.2-py3-none-any.whl", hash = "sha256:44c0c9811cfb3b83b28f1c3d054531d5b8b81abaedee0d8cb403650d023832ba", size = 329132, upload-time = "2026-01-26T11:57:54.099Z" },
+]
+
+[[package]]
 name = "pyperclip"
 version = "1.11.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3976,7 +3990,7 @@ dependencies = [
     { name = "arq" },
     { name = "boto3" },
     { name = "chonkie", extra = ["tokenizers"] },
-    { name = "crawl4ai" },
+    { name = "crawl4ai", extra = ["pdf"] },
     { name = "fastapi", extra = ["standard"] },
     { name = "logfire" },
     { name = "psycopg", extra = ["binary"] },
@@ -4007,7 +4021,7 @@ requires-dist = [
     { name = "arq", specifier = ">=0.26.3" },
     { name = "boto3", specifier = ">=1.42.29" },
     { name = "chonkie", extras = ["tokenizers"], specifier = ">=1.5.2" },
-    { name = "crawl4ai", specifier = ">=0.7.8" },
+    { name = "crawl4ai", extras = ["pdf"], specifier = ">=0.7.8" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.128.0" },
     { name = "logfire", specifier = ">=4.18.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.3.2" },
