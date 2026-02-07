@@ -8,7 +8,7 @@ from app.models import (
     ParentChunk,  # noqa: F401
 )  # Imports needed for SQLModel metadata registration
 
-engine: Engine = create_engine(getenv("SUPABASE_URL") or "sqlite://")
+engine: Engine = create_engine(getenv("SUPABASE_URL", "sqlite://"))
 
 
 def init_relational_db() -> None:

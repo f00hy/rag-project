@@ -6,8 +6,8 @@ from app.config import (
 )
 
 client = QdrantClient(
-    url=(getenv("QDRANT_URL") or ":memory:"),
-    api_key=(getenv("QDRANT_API_KEY") or None),
+    url=(getenv("QDRANT_URL", ":memory:")),
+    api_key=(getenv("QDRANT_API_KEY", None)),
     prefer_grpc=True,
     https=True,
     timeout=30,
