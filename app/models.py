@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 from pydantic import BaseModel
-from dataclasses import dataclass
-from fastembed import SparseEmbedding
-from fastembed.common.types import NumpyArray
+from qdrant_client.models import SparseVector
 from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import Column, Text
 from uuid import UUID, uuid4
@@ -20,13 +18,12 @@ class Chunk(BaseModel):
     child_ids: list[str] = []
 
 
-@dataclass
-class Embedding:
+class Embedding(BaseModel):
     """Dense and sparse vector embeddings for a chunk."""
 
     chunk_id: str
-    dense_embedding: NumpyArray
-    sparse_embedding: SparseEmbedding
+    dense_embedding: list[float]
+    sparse_embedding: SparseVector
 
 
 class Document(SQLModel, table=True):

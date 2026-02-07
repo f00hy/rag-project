@@ -1,6 +1,7 @@
 """Text embedding service using hybrid dense and sparse embeddings."""
 
 from fastembed import TextEmbedding, SparseTextEmbedding
+from qdrant_client.models import SparseVector
 from app.models import Chunk, Embedding
 from app.config import DENSE_MODEL_NAME, SPARSE_MODEL_NAME
 
@@ -23,8 +24,11 @@ def embed(chunks: list[Chunk]) -> list[Embedding]:
     return [
         Embedding(
             chunk_id=chunk.chunk_id,
-            dense_embedding=dense_embedding,
-            sparse_embedding=sparse_embedding,
+            dense_embedding=dense_embedding.tolist(),
+            sparse_embedding=SparseVector(
+                indices=sparse_embedding.indices.tolist(),
+                values=sparse_embedding.values.tolist(),
+            ),
         )
         for chunk, dense_embedding, sparse_embedding in zip(
             chunks, dense_embeddings, sparse_embeddings
