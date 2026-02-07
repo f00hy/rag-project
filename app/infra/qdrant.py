@@ -1,11 +1,11 @@
 from os import getenv
-from qdrant_client import QdrantClient, models
+from qdrant_client import AsyncQdrantClient, models
 from app.config import (
     DENSE_MODEL_NAME,
     COLLECTION_NAME,
 )
 
-client = QdrantClient(
+client = AsyncQdrantClient(
     url=(getenv("QDRANT_URL", ":memory:")),
     api_key=(getenv("QDRANT_API_KEY", None)),
     prefer_grpc=True,
@@ -14,9 +14,9 @@ client = QdrantClient(
 )
 
 
-def init_vector_db() -> None:
-    if not client.collection_exists(COLLECTION_NAME):
-        client.create_collection(
+async def init_vector_db() -> None:
+    if not await client.collection_exists(COLLECTION_NAME):
+        await client.create_collection(
             collection_name=COLLECTION_NAME,
             vectors_config={
                 "dense": models.VectorParams(
