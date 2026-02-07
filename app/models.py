@@ -12,8 +12,8 @@ from datetime import datetime, timezone
 class Chunk(BaseModel):
     """Text chunk with hierarchical parent-child relationships."""
 
+    id: str
     text: str
-    chunk_id: str
     parent_id: str | None = None
     child_ids: list[str] = []
 

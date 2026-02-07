@@ -23,7 +23,7 @@ def embed(chunks: list[Chunk]) -> list[Embedding]:
     sparse_embeddings = list(sparse_model.embed(texts))
     return [
         Embedding(
-            chunk_id=chunk.chunk_id,
+            chunk_id=chunk.id,
             dense_embedding=dense_embedding.tolist(),
             sparse_embedding=SparseVector(
                 indices=sparse_embedding.indices.tolist(),

@@ -73,8 +73,8 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
         full_text = prefix_ctx + parent_chunk.text + suffix_ctx
 
         parent_wrapper = Chunk(
+            id=parent_id,
             text=full_text,
-            chunk_id=parent_id,
         )
 
         # Create children from original parent
@@ -83,8 +83,8 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
             child_id = f"c_{child_counter}"
             children.append(
                 Chunk(
+                    id=child_id,
                     text=child_chunk.text,
-                    chunk_id=child_id,
                     parent_id=parent_id,
                 )
             )
