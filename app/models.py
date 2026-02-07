@@ -54,11 +54,3 @@ class ParentChunk(SQLModel, table=True):
 
     document_id: UUID = Field(foreign_key="document.id", ondelete="CASCADE", index=True)
     document: Document = Relationship(back_populates="parent_chunks")
-
-
-class ChildChunkPayload(BaseModel):
-    """Metadata linking a child chunk to its parent chunk and source document."""
-
-    chunk_id: str
-    parent_id: UUID
-    document_id: UUID
