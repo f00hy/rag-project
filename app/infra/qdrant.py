@@ -1,9 +1,8 @@
+"""Vector database connection and initialization for Qdrant."""
+
 from os import getenv
 from qdrant_client import AsyncQdrantClient, models
-from app.config import (
-    DENSE_MODEL_NAME,
-    COLLECTION_NAME,
-)
+from app.config import DENSE_MODEL_NAME, COLLECTION_NAME
 
 vec_db_client = AsyncQdrantClient(
     url=(getenv("QDRANT_URL", ":memory:")),
@@ -15,6 +14,7 @@ vec_db_client = AsyncQdrantClient(
 
 
 async def init_vec_db() -> None:
+    """Create the collection with dense and sparse vector configs if it doesn't exist."""
     if not await vec_db_client.collection_exists(COLLECTION_NAME):
         await vec_db_client.create_collection(
             collection_name=COLLECTION_NAME,

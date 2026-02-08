@@ -1,3 +1,5 @@
+"""Object storage connection for Cloudflare R2."""
+
 from os import getenv
 from boto3 import client
 
