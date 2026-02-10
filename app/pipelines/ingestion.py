@@ -3,6 +3,7 @@
 from hashlib import sha256
 from uuid import uuid4
 from urllib.parse import urlparse
+from asyncio import to_thread
 from crawl4ai.models import CrawlResult
 from qdrant_client.models import PointStruct
 from app.config import BUCKET_NAME, COLLECTION_NAME
@@ -30,10 +31,10 @@ async def ingest(result: CrawlResult) -> None:
     content_key = f"{parsed_url.netloc}{parsed_url.path}".replace("/", "_")
 
     # Chunk content
-    parents, children = chunk(content)
+    parents, children = await to_thread(chunk, content)
 
     # Embed child chunks
-    embeddings = embed(children)
+    embeddings = await to_thread(embed, children)
 
     # Initialize document object
     document = Document(
