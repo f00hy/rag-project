@@ -5,8 +5,8 @@ from qdrant_client.models import SparseVector
 from app.models import Chunk, Embedding
 from app.config import DENSE_MODEL_NAME, SPARSE_MODEL_NAME
 
-dense_model = TextEmbedding(model_name=DENSE_MODEL_NAME)
-sparse_model = SparseTextEmbedding(model_name=SPARSE_MODEL_NAME)
+_dense_model = TextEmbedding(model_name=DENSE_MODEL_NAME)
+_sparse_model = SparseTextEmbedding(model_name=SPARSE_MODEL_NAME)
 
 
 def embed(chunks: list[Chunk]) -> list[Embedding]:
@@ -19,8 +19,8 @@ def embed(chunks: list[Chunk]) -> list[Embedding]:
         List of embeddings with both dense and sparse vectors.
     """
     texts = [chunk.text for chunk in chunks]
-    dense_embeddings = list(dense_model.embed(texts))
-    sparse_embeddings = list(sparse_model.embed(texts))
+    dense_embeddings = list(_dense_model.embed(texts))
+    sparse_embeddings = list(_sparse_model.embed(texts))
     return [
         Embedding(
             chunk_id=chunk.id,

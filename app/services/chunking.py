@@ -10,26 +10,26 @@ from app.config import (
     OVERLAP_CONTEXT_SIZE,
 )
 
-tokenizer = Tokenizer.from_pretrained(SPARSE_MODEL_NAME)
+_tokenizer = Tokenizer.from_pretrained(SPARSE_MODEL_NAME)
 
-parent_chunker = RecursiveChunker.from_recipe(
+_parent_chunker = RecursiveChunker.from_recipe(
     name="markdown",
     lang="en",
-    tokenizer=tokenizer,
+    tokenizer=_tokenizer,
     chunk_size=PARENT_CHUNK_SIZE,
     min_characters_per_chunk=12,
 )
 
-child_chunker = RecursiveChunker.from_recipe(
+_child_chunker = RecursiveChunker.from_recipe(
     name="markdown",
     lang="en",
-    tokenizer=tokenizer,
+    tokenizer=_tokenizer,
     chunk_size=CHILD_CHUNK_SIZE,
     min_characters_per_chunk=12,
 )
 
-prefix_overlapper = OverlapRefinery(
-    tokenizer=tokenizer,
+_prefix_overlapper = OverlapRefinery(
+    tokenizer=_tokenizer,
     context_size=OVERLAP_CONTEXT_SIZE,
     mode="token",
     method="prefix",
@@ -37,8 +37,8 @@ prefix_overlapper = OverlapRefinery(
     inplace=False,
 )
 
-suffix_overlapper = OverlapRefinery(
-    tokenizer=tokenizer,
+_suffix_overlapper = OverlapRefinery(
+    tokenizer=_tokenizer,
     context_size=OVERLAP_CONTEXT_SIZE,
     mode="token",
     method="suffix",
@@ -56,9 +56,9 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
     Returns:
         Tuple of (parent_chunks, child_chunks) with relationships established.
     """
-    parent_chunks = parent_chunker.chunk(text)
-    prefix_chunks = prefix_overlapper.refine(parent_chunks)
-    suffix_chunks = suffix_overlapper.refine(parent_chunks)
+    parent_chunks = _parent_chunker.chunk(text)
+    prefix_chunks = _prefix_overlapper.refine(parent_chunks)
+    suffix_chunks = _suffix_overlapper.refine(parent_chunks)
 
     parents = []
     children = []
@@ -78,7 +78,7 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
         )
 
         # Create children from original parent
-        child_chunks = child_chunker.chunk(parent_chunk.text)
+        child_chunks = _child_chunker.chunk(parent_chunk.text)
         for child_chunk in child_chunks:
             child_id = f"c_{child_counter}"
             children.append(
