@@ -4,7 +4,7 @@ from __future__ import annotations
 from pydantic import BaseModel
 from qdrant_client.models import SparseVector
 from sqlmodel import SQLModel, Field, Relationship
-from sqlalchemy import Column, Text
+from sqlalchemy import Column, DateTime, Text
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
 
@@ -33,7 +33,10 @@ class Document(SQLModel, table=True):
     title: str
     content_key: str
     source_url: str
-    scraped_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    scraped_at: datetime = Field(
+        default_factory=lambda: datetime.now(timezone.utc),
+        sa_column=Column(DateTime(timezone=True)),
+    )
     content_hash: str
 
     parent_chunks: list[ParentChunk] = Relationship(
