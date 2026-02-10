@@ -19,8 +19,8 @@ def embed(chunks: list[Chunk]) -> list[Embedding]:
         List of embeddings with both dense and sparse vectors.
     """
     texts = [chunk.text for chunk in chunks]
-    dense_embeddings = list(_dense_model.embed(texts))
-    sparse_embeddings = list(_sparse_model.embed(texts))
+    dense_embeddings = list(_dense_model.embed(texts, batch_size=16))
+    sparse_embeddings = list(_sparse_model.embed(texts, batch_size=16))
     return [
         Embedding(
             chunk_id=chunk.id,
