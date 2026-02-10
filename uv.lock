@@ -20,6 +20,36 @@ wheels = [
 ]
 
 [[package]]
+name = "aioboto3"
+version = "7.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aiobotocore" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3b/5f/cf6de345760520907ab91573be61853552e6402d94fa781b09fa84ce3f42/aioboto3-7.0.0.tar.gz", hash = "sha256:84fc1ed0d456f2f0ff5626e5045bb9871461155aa9d91f44be0e3b1554e30552", size = 47935, upload-time = "2020-03-17T12:34:43.898Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5d/02/d2b8ec2172577329daec50b0e547ac68955e04983ae42367fe3ae8388229/aioboto3-7.0.0-py2.py3-none-any.whl", hash = "sha256:db3db4058115fe610e631d98fe90a6d98de55cc93da7d9f6ddab4a5f74b2ff0c", size = 28941, upload-time = "2020-03-17T12:34:42.138Z" },
+]
+
+[[package]]
+name = "aiobotocore"
+version = "3.1.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aiohttp" },
+    { name = "aioitertools" },
+    { name = "botocore" },
+    { name = "jmespath" },
+    { name = "multidict" },
+    { name = "python-dateutil" },
+    { name = "wrapt" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a3/86/6b22e645d2f340b6c0f7164e57641bd926b9c08d73428e4962fb0f3ae71b/aiobotocore-3.1.2.tar.gz", hash = "sha256:d9b5bfff63df96a0ba78f7e5d10a063ab2dd8497e9c15ecf9d9660dafb853172", size = 122621, upload-time = "2026-02-05T10:21:37.434Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cd/22/4d16dca3bd1d6475a53063eb72150269cea1a0a201b55288b3402f61f119/aiobotocore-3.1.2-py3-none-any.whl", hash = "sha256:1141cec16c47cc3e466d89fcccc5c57291a3751a15488fe7fbaea8550f94f468", size = 87701, upload-time = "2026-02-05T10:21:36.183Z" },
+]
+
+[[package]]
 name = "aiofiles"
 version = "25.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -120,6 +150,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/3c/5f/24155e30ba7f8c96918af1350eb0663e2430aad9e001c0489d89cd708ab1/aiohttp-3.13.3-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:fc353029f176fd2b3ec6cfc71be166aba1936fe5d73dd1992ce289ca6647a9aa", size = 1769801, upload-time = "2026-01-03T17:32:20.25Z" },
     { url = "https://files.pythonhosted.org/packages/eb/f8/7314031ff5c10e6ece114da79b338ec17eeff3a079e53151f7e9f43c4723/aiohttp-3.13.3-cp314-cp314t-win32.whl", hash = "sha256:2e41b18a58da1e474a057b3d35248d8320029f61d70a37629535b16a0c8f3767", size = 466523, upload-time = "2026-01-03T17:32:22.215Z" },
     { url = "https://files.pythonhosted.org/packages/b4/63/278a98c715ae467624eafe375542d8ba9b4383a016df8fdefe0ae28382a7/aiohttp-3.13.3-cp314-cp314t-win_amd64.whl", hash = "sha256:44531a36aa2264a1860089ffd4dce7baf875ee5a6079d5fb42e261c704ef7344", size = 499694, upload-time = "2026-01-03T17:32:24.546Z" },
+]
+
+[[package]]
+name = "aioitertools"
+version = "0.13.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/fd/3c/53c4a17a05fb9ea2313ee1777ff53f5e001aefd5cc85aa2f4c2d982e1e38/aioitertools-0.13.0.tar.gz", hash = "sha256:620bd241acc0bbb9ec819f1ab215866871b4bbd1f73836a55f799200ee86950c", size = 19322, upload-time = "2025-11-06T22:17:07.609Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/10/a1/510b0a7fadc6f43a6ce50152e69dbd86415240835868bb0bd9b5b88b1e06/aioitertools-0.13.0-py3-none-any.whl", hash = "sha256:0be0292b856f08dfac90e31f4739432f4cb6d7520ab9eb73e143f4f2fa5259be", size = 24182, upload-time = "2025-11-06T22:17:06.502Z" },
 ]
 
 [[package]]
@@ -3987,8 +4026,9 @@ name = "rag-project"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "aioboto3" },
+    { name = "aiosqlite" },
     { name = "arq" },
-    { name = "boto3" },
     { name = "chonkie", extra = ["tokenizers"] },
     { name = "crawl4ai", extra = ["pdf"] },
     { name = "fastapi", extra = ["standard"] },
@@ -4012,14 +4052,15 @@ tool = [
     { name = "pre-commit" },
     { name = "ruff" },
     { name = "ty" },
-    { name = "types-boto3" },
+    { name = "types-aioboto3", extra = ["s3"] },
     { name = "types-redis" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "aioboto3", specifier = ">=7.0.0" },
+    { name = "aiosqlite", specifier = ">=0.22.1" },
     { name = "arq", specifier = ">=0.26.3" },
-    { name = "boto3", specifier = ">=1.42.29" },
     { name = "chonkie", extras = ["tokenizers"], specifier = ">=1.5.2" },
     { name = "crawl4ai", extras = ["pdf"], specifier = ">=0.7.8" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.128.0" },
@@ -4043,7 +4084,7 @@ tool = [
     { name = "pre-commit", specifier = ">=4.5.1" },
     { name = "ruff", specifier = ">=0.14.13" },
     { name = "ty", specifier = ">=0.0.12" },
-    { name = "types-boto3", specifier = ">=1.42.29" },
+    { name = "types-aioboto3", extras = ["aioboto3", "s3"], specifier = ">=9.6.0.post2" },
     { name = "types-redis", specifier = ">=4.6.0.20241004" },
 ]
 
@@ -4941,25 +4982,40 @@ wheels = [
 ]
 
 [[package]]
+name = "types-aioboto3"
+version = "9.6.0.post2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "botocore-stubs" },
+    { name = "types-s3transfer" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/81/46/e2fd85a86e21520ea0b146242afb655782a9973c2a71df13bc24cc9fc425/types-aioboto3-9.6.0.post2.tar.gz", hash = "sha256:cb19e5f4c0c03105cfb46d0a32581d74e5fb238734eeec2c4928f30196795399", size = 50433, upload-time = "2022-07-23T22:01:42.542Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c0/50/20a61abc5777e1461961c2d9a522053c96ef163fba7a5b34662d1cf0cbfb/types_aioboto3-9.6.0.post2-py3-none-any.whl", hash = "sha256:43e4f4e333ebb300f2592dedb36e77a8b957ffd434a5ea816bbb06b23f90e2bc", size = 32092, upload-time = "2022-07-23T22:01:39.106Z" },
+]
+
+[package.optional-dependencies]
+s3 = [
+    { name = "types-aiobotocore-s3" },
+]
+
+[[package]]
+name = "types-aiobotocore-s3"
+version = "3.1.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8e/16/618d9afce31bc64482492827cce2e581c63ff6a144bcdcf6bf77c4f92468/types_aiobotocore_s3-3.1.2.tar.gz", hash = "sha256:5dcdf2fbd1daff7a443fc121196b20390258c443b3a4ddf15738bd7619173f70", size = 76893, upload-time = "2026-02-06T02:30:10.415Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/de/22/cb0ba173751d3d395ea52adbf677029c8048eab9ee336cdc08c4a59ae462/types_aiobotocore_s3-3.1.2-py3-none-any.whl", hash = "sha256:522131cbc00a8151eb57ac46537ac3d1638745ca54c4434346f9806a5bfd70fe", size = 84615, upload-time = "2026-02-06T02:30:08.878Z" },
+]
+
+[[package]]
 name = "types-awscrt"
 version = "0.31.1"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/97/be/589b7bba42b5681a72bac4d714287afef4e1bb84d07c859610ff631d449e/types_awscrt-0.31.1.tar.gz", hash = "sha256:08b13494f93f45c1a92eb264755fce50ed0d1dc75059abb5e31670feb9a09724", size = 17839, upload-time = "2026-01-16T02:01:23.394Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/5e/fd/ddca80617f230bd833f99b4fb959abebffd8651f520493cae2e96276b1bd/types_awscrt-0.31.1-py3-none-any.whl", hash = "sha256:7e4364ac635f72bd57f52b093883640b1448a6eded0ecbac6e900bf4b1e4777b", size = 42516, upload-time = "2026-01-16T02:01:21.637Z" },
-]
-
-[[package]]
-name = "types-boto3"
-version = "1.42.30"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "botocore-stubs" },
-    { name = "types-s3transfer" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/07/dd/05b560b9f44f4b73c04b895b0cf46764997826520a012b4b2595d2ec9c1b/types_boto3-1.42.30.tar.gz", hash = "sha256:bc12c2e623de794642a806c42a5d040e62ef9f4e33670effde8169b2452ba72c", size = 101283, upload-time = "2026-01-16T20:53:20.719Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/cc/8a/b46e6586edc5a977bed218bda9cc39f33792d42b1239b3076fa8de7dfb1b/types_boto3-1.42.30-py3-none-any.whl", hash = "sha256:96cab45bdd308e502c0f5ab62597dd25429188e56a44d193c8018a8d30345a31", size = 69676, upload-time = "2026-01-16T20:53:15.444Z" },
 ]
 
 [[package]]
