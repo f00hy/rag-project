@@ -88,5 +88,4 @@ async def ingest(result: CrawlResult) -> None:
     # https://sqlmodel.tiangolo.com/tutorial/automatic-id-none-refresh/
     async with rel_db_session() as session:
         session.add(document)
-        session.add_all(parent_chunks)
         await session.commit()
