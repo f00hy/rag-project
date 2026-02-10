@@ -4,13 +4,12 @@ from hashlib import sha256
 from uuid import uuid4
 from urllib.parse import urlparse
 from crawl4ai.models import CrawlResult
-from sqlmodel import Session
 from qdrant_client.models import PointStruct
 from app.config import BUCKET_NAME, COLLECTION_NAME
 from app.models import Document, ParentChunk
 from app.infra.cfr2 import obj_store_client
 from app.infra.qdrant import vec_db_client
-from app.infra.supabase import rel_db_engine
+from app.infra.supabase import rel_db_session
 from app.services.chunking import chunk
 from app.services.embedding import embed
 
@@ -56,12 +55,13 @@ async def ingest(result: CrawlResult) -> None:
         parent_id_map[parent.id] = parent_chunk
 
     # Store content in object store
-    obj_store_client.put_object(
-        Bucket=BUCKET_NAME,
-        Key=content_key,
-        Body=content,
-        ContentType="text/markdown",
-    )
+    async with obj_store_client() as client:
+        await client.put_object(
+            Bucket=BUCKET_NAME,
+            Key=content_key,
+            Body=content,
+            ContentType="text/markdown",
+        )
 
     # Store child chunks in vector database
     await vec_db_client.upsert(
@@ -85,7 +85,7 @@ async def ingest(result: CrawlResult) -> None:
     # Store document and parent chunks in relational database
     # Placed after Qdrant upsertions to avoid object refreshing
     # https://sqlmodel.tiangolo.com/tutorial/automatic-id-none-refresh/
-    with Session(rel_db_engine) as session:
+    async with rel_db_session() as session:
         session.add(document)
         session.add_all(parent_chunks)
-        session.commit()
+        await session.commit()
