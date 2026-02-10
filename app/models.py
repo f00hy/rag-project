@@ -1,6 +1,5 @@
 """Data models for the RAG pipeline."""
 
-from __future__ import annotations
 from pydantic import BaseModel
 from qdrant_client.models import SparseVector
 from sqlmodel import SQLModel, Field, Relationship
@@ -39,7 +38,7 @@ class Document(SQLModel, table=True):
     )
     content_hash: str
 
-    parent_chunks: list[ParentChunk] = Relationship(
+    parent_chunks: list["ParentChunk"] = Relationship(
         back_populates="document", cascade_delete=True
     )
 
