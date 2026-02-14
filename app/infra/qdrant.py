@@ -35,3 +35,9 @@ async def init_vec_db() -> None:
             },
             on_disk_payload=True,
         )
+
+        await vec_db_client.create_payload_index(
+            collection_name=COLLECTION_NAME,
+            field_name="parent_id",
+            field_schema=models.PayloadSchemaType.KEYWORD,
+        )
