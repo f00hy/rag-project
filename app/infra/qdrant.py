@@ -14,7 +14,7 @@ vec_db_client = AsyncQdrantClient(
 
 
 async def init_vec_db() -> None:
-    """Create the collection with dense and sparse vector configs if it doesn't exist."""
+    """Create the collection if it doesn't exist, with dense and sparse vector configs, scalar quantization, and a payload index."""
     if not await vec_db_client.collection_exists(COLLECTION_NAME):
         await vec_db_client.create_collection(
             collection_name=COLLECTION_NAME,
