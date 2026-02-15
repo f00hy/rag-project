@@ -24,15 +24,22 @@ async def init_vec_db() -> None:
                     distance=models.Distance.COSINE,
                     datatype=models.Datatype.FLOAT16,
                     on_disk=True,
-                )
+                ),
             },
             sparse_vectors_config={
                 "sparse": models.SparseVectorParams(
                     index=models.SparseIndexParams(
                         datatype=models.Datatype.FLOAT16,
                     ),
-                )
+                ),
             },
+            quantization_config=models.ScalarQuantization(
+                scalar=models.ScalarQuantizationConfig(
+                    type=models.ScalarType.INT8,
+                    quantile=0.99,
+                    always_ram=True,
+                ),
+            ),
             on_disk_payload=True,
         )
 
