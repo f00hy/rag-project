@@ -71,15 +71,15 @@ async def ingest(result: CrawlResult) -> None:
             PointStruct(
                 id=str(uuid4()),
                 vector={
-                    "dense": emb.dense_embedding,
-                    "sparse": emb.sparse_embedding,
+                    "dense": embedding.dense,
+                    "sparse": embedding.sparse,
                 },
                 payload={
                     "parent_id": str(parent_id_map[child.parent_id].id),
                     "document_id": str(document.id),
                 },
             )
-            for child, emb in zip(children, embeddings)
+            for child, embedding in zip(children, embeddings)
         ],
     )
 

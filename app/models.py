@@ -21,8 +21,8 @@ class Embedding(BaseModel):
     """Dense and sparse vector embeddings for a chunk."""
 
     chunk_id: str | None = None
-    dense_embedding: list[float]
-    sparse_embedding: SparseVector
+    dense: list[float]
+    sparse: SparseVector
 
 
 class Document(SQLModel, table=True):

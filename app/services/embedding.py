@@ -24,8 +24,8 @@ def embed_chunks(chunks: list[Chunk]) -> list[Embedding]:
     return [
         Embedding(
             chunk_id=chunk.id,
-            dense_embedding=dense_embedding.tolist(),
-            sparse_embedding=SparseVector(
+            dense=dense_embedding.tolist(),
+            sparse=SparseVector(
                 indices=sparse_embedding.indices.tolist(),
                 values=sparse_embedding.values.tolist(),
             ),
@@ -48,8 +48,8 @@ def embed_text(text: str) -> Embedding:
     [dense_embedding] = _dense_model.embed(text)
     [sparse_embedding] = _sparse_model.embed(text)
     return Embedding(
-        dense_embedding=dense_embedding.tolist(),
-        sparse_embedding=SparseVector(
+        dense=dense_embedding.tolist(),
+        sparse=SparseVector(
             indices=sparse_embedding.indices.tolist(),
             values=sparse_embedding.values.tolist(),
         ),
