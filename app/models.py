@@ -1,11 +1,12 @@
 """Data models for the RAG pipeline."""
 
+from datetime import datetime, timezone
+from uuid import UUID, uuid4
+
 from pydantic import BaseModel
 from qdrant_client.models import SparseVector
-from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import Column, DateTime, Text
-from uuid import UUID, uuid4
-from datetime import datetime, timezone
+from sqlmodel import Field, Relationship, SQLModel
 
 
 class Chunk(BaseModel):
@@ -31,12 +32,12 @@ class Document(SQLModel, table=True):
     id: UUID = Field(default_factory=uuid4, primary_key=True)
     title: str
     content_key: str
+    content_hash: str = Field(index=True)
     source_url: str
     scraped_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),
         sa_column=Column(DateTime(timezone=True)),
     )
-    content_hash: str
 
     parent_chunks: list["ParentChunk"] = Relationship(
         back_populates="document", cascade_delete=True

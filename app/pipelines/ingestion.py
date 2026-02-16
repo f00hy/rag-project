@@ -1,16 +1,19 @@
 """Data ingestion pipeline: crawl result -> chunk -> embed -> store."""
 
-from hashlib import sha256
-from uuid import uuid4
-from urllib.parse import urlparse
 from asyncio import to_thread
+from hashlib import sha256
+from urllib.parse import urlparse
+from uuid import uuid4
+
 from crawl4ai.models import CrawlResult
 from qdrant_client.models import PointStruct
+from sqlmodel import select
+
 from app.config import BUCKET_NAME, COLLECTION_NAME
-from app.models import Document, ParentChunk
 from app.infra.cfr2 import obj_store_client
 from app.infra.qdrant import vec_db_client
 from app.infra.supabase import rel_db_session
+from app.models import Document, ParentChunk
 from app.services.chunking import chunk
 from app.services.embedding import embed_chunks
 
@@ -29,6 +32,16 @@ async def ingest(result: CrawlResult) -> None:
     content_hash = sha256(content.encode("utf-8")).hexdigest()
     parsed_url = urlparse(result.url)
     content_key = f"{parsed_url.netloc}{parsed_url.path}".replace("/", "_")
+
+    # Check if content already exists
+    async with rel_db_session() as session:
+        existing = (
+            await session.exec(
+                select(Document).where(Document.content_hash == content_hash)
+            )
+        ).one_or_none()
+        if existing:
+            return
 
     # Chunk content
     parents, children = await to_thread(chunk, content)
