@@ -9,7 +9,7 @@ _dense_model = TextEmbedding(model_name=DENSE_MODEL_NAME)
 _sparse_model = SparseTextEmbedding(model_name=SPARSE_MODEL_NAME)
 
 
-def embed(chunks: list[Chunk]) -> list[Embedding]:
+def embed_chunks(chunks: list[Chunk]) -> list[Embedding]:
     """Generate dense and sparse embeddings for text chunks.
 
     Args:
@@ -34,3 +34,23 @@ def embed(chunks: list[Chunk]) -> list[Embedding]:
             chunks, dense_embeddings, sparse_embeddings
         )
     ]
+
+
+def embed_text(text: str) -> Embedding:
+    """Generate dense and sparse embeddings for a text string.
+
+    Args:
+        text: The text to embed.
+
+    Returns:
+        Embedding with both dense and sparse vectors.
+    """
+    [dense_embedding] = _dense_model.embed(text)
+    [sparse_embedding] = _sparse_model.embed(text)
+    return Embedding(
+        dense_embedding=dense_embedding.tolist(),
+        sparse_embedding=SparseVector(
+            indices=sparse_embedding.indices.tolist(),
+            values=sparse_embedding.values.tolist(),
+        ),
+    )

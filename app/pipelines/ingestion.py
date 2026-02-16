@@ -12,7 +12,7 @@ from app.infra.cfr2 import obj_store_client
 from app.infra.qdrant import vec_db_client
 from app.infra.supabase import rel_db_session
 from app.services.chunking import chunk
-from app.services.embedding import embed
+from app.services.embedding import embed_chunks
 
 
 async def ingest(result: CrawlResult) -> None:
@@ -34,7 +34,7 @@ async def ingest(result: CrawlResult) -> None:
     parents, children = await to_thread(chunk, content)
 
     # Embed child chunks
-    embeddings = await to_thread(embed, children)
+    embeddings = await to_thread(embed_chunks, children)
 
     # Initialize document object
     document = Document(

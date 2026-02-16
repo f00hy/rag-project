@@ -20,7 +20,7 @@ class Chunk(BaseModel):
 class Embedding(BaseModel):
     """Dense and sparse vector embeddings for a chunk."""
 
-    chunk_id: str
+    chunk_id: str | None = None
     dense_embedding: list[float]
     sparse_embedding: SparseVector
 
