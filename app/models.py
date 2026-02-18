@@ -1,7 +1,7 @@
 """Data models for the RAG pipeline."""
 
 from datetime import datetime, timezone
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from pydantic import BaseModel
 from qdrant_client.models import SparseVector
@@ -29,7 +29,7 @@ class Embedding(BaseModel):
 class Document(SQLModel, table=True):
     """Document metadata with associated content and parent chunks."""
 
-    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    id: UUID = Field(primary_key=True)
     title: str
     content_key: str
     content_hash: str = Field(index=True)
@@ -49,7 +49,7 @@ class ParentChunk(SQLModel, table=True):
 
     __tablename__ = "parent_chunk"
 
-    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    id: UUID = Field(primary_key=True)
     text: str = Field(sa_column=Column(Text))
 
     document_id: UUID = Field(foreign_key="document.id", ondelete="CASCADE", index=True)

@@ -3,7 +3,7 @@
 from asyncio import to_thread
 from hashlib import sha256
 from urllib.parse import urlparse
-from uuid import uuid4
+from uuid import NAMESPACE_URL, uuid5
 
 from crawl4ai.models import CrawlResult
 from qdrant_client.models import PointStruct
@@ -51,6 +51,7 @@ async def ingest(result: CrawlResult) -> None:
 
     # Initialize document object
     document = Document(
+        id=uuid5(NAMESPACE_URL, content_key),
         title=title,
         content_key=content_key,
         source_url=result.url,
@@ -62,6 +63,7 @@ async def ingest(result: CrawlResult) -> None:
     parent_id_map: dict[str, ParentChunk] = {}
     for parent in parents:
         parent_chunk = ParentChunk(
+            id=uuid5(NAMESPACE_URL, f"{content_key}:{parent.id}"),
             text=parent.text,
             document=document,
         )
@@ -82,7 +84,7 @@ async def ingest(result: CrawlResult) -> None:
         collection_name=COLLECTION_NAME,
         points=[
             PointStruct(
-                id=str(uuid4()),
+                id=str(uuid5(NAMESPACE_URL, f"{content_key}:{child.id}")),
                 vector={
                     "dense": embedding.dense,
                     "sparse": embedding.sparse,
