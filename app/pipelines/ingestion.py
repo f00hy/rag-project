@@ -111,8 +111,6 @@ async def ingest(result: CrawlResult) -> None:
     )
 
     # Store document and parent chunks in relational database
-    # Placed after Qdrant upsertions to avoid object refreshing
-    # https://sqlmodel.tiangolo.com/tutorial/automatic-id-none-refresh/
     async with rel_db_session() as session:
         if existing:
             await session.exec(
