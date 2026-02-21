@@ -32,7 +32,7 @@ class Document(SQLModel, table=True):
     id: UUID = Field(primary_key=True)
     title: str
     content_key: str
-    content_hash: str = Field(index=True)
+    content_hash: str
     source_url: str
     scraped_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),

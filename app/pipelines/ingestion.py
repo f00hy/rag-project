@@ -6,8 +6,8 @@ from urllib.parse import urlparse
 from uuid import NAMESPACE_URL, uuid5
 
 from crawl4ai.models import CrawlResult
-from qdrant_client.models import PointStruct
-from sqlmodel import select
+from qdrant_client import models
+from sqlmodel import col, delete
 
 from app.config import BUCKET_NAME, COLLECTION_NAME
 from app.infra.cfr2 import obj_store_client
@@ -33,22 +33,6 @@ async def ingest(result: CrawlResult) -> None:
     parsed_url = urlparse(result.url)
     content_key = f"{parsed_url.netloc}{parsed_url.path}".replace("/", "_")
 
-    # Check if content already exists
-    async with rel_db_session() as session:
-        existing = (
-            await session.exec(
-                select(Document).where(Document.content_hash == content_hash)
-            )
-        ).one_or_none()
-        if existing:
-            return
-
-    # Chunk content
-    parents, children = await to_thread(chunk, content)
-
-    # Embed child chunks
-    embeddings = await to_thread(embed_chunks, children)
-
     # Initialize document object
     document = Document(
         id=uuid5(NAMESPACE_URL, content_key),
@@ -57,6 +41,18 @@ async def ingest(result: CrawlResult) -> None:
         source_url=result.url,
         content_hash=content_hash,
     )
+
+    # Check if document already exists
+    async with rel_db_session() as session:
+        existing = await session.get(Document, document.id)
+        if existing and existing.content_hash == content_hash:
+            return
+
+    # Chunk content
+    parents, children = await to_thread(chunk, content)
+
+    # Embed child chunks
+    embeddings = await to_thread(embed_chunks, children)
 
     # Initialize parent chunk objects
     parent_chunks: list[ParentChunk] = []
@@ -79,11 +75,27 @@ async def ingest(result: CrawlResult) -> None:
             ContentType="text/markdown",
         )
 
+    # Delete child chunks in vector database
+    if existing:
+        await vec_db_client.delete(
+            collection_name=COLLECTION_NAME,
+            points_selector=models.FilterSelector(
+                filter=models.Filter(
+                    must=[
+                        models.FieldCondition(
+                            key="document_id",
+                            match=models.MatchValue(value=str(document.id)),
+                        ),
+                    ],
+                ),
+            ),
+        )
+
     # Store child chunks in vector database
     await vec_db_client.upsert(
         collection_name=COLLECTION_NAME,
         points=[
-            PointStruct(
+            models.PointStruct(
                 id=str(uuid5(NAMESPACE_URL, f"{content_key}:{child.id}")),
                 vector={
                     "dense": embedding.dense,
@@ -102,5 +114,11 @@ async def ingest(result: CrawlResult) -> None:
     # Placed after Qdrant upsertions to avoid object refreshing
     # https://sqlmodel.tiangolo.com/tutorial/automatic-id-none-refresh/
     async with rel_db_session() as session:
-        session.add(document)
+        if existing:
+            await session.exec(
+                delete(ParentChunk).where(col(ParentChunk.document_id) == document.id)
+            )
+            await session.merge(document)
+        else:
+            session.add(document)
         await session.commit()
