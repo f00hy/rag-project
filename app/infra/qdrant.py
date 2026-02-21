@@ -1,8 +1,10 @@
 """Vector database connection and initialization for Qdrant."""
 
 from os import getenv
+
 from qdrant_client import AsyncQdrantClient, models
-from app.config import DENSE_MODEL_NAME, COLLECTION_NAME
+
+from app.config import COLLECTION_NAME, DENSE_MODEL_NAME
 
 vec_db_client = AsyncQdrantClient(
     url=(getenv("QDRANT_URL", ":memory:")),
@@ -14,7 +16,7 @@ vec_db_client = AsyncQdrantClient(
 
 
 async def init_vec_db() -> None:
-    """Create the collection if it doesn't exist, with dense and sparse vector configs, scalar quantization, and a payload index."""
+    """Create the collection if it doesn't exist, with dense and sparse vector configs, scalar quantization, and payload indexes."""
     if not await vec_db_client.collection_exists(COLLECTION_NAME):
         await vec_db_client.create_collection(
             collection_name=COLLECTION_NAME,
@@ -46,5 +48,11 @@ async def init_vec_db() -> None:
         await vec_db_client.create_payload_index(
             collection_name=COLLECTION_NAME,
             field_name="parent_id",
+            field_schema=models.PayloadSchemaType.KEYWORD,
+        )
+
+        await vec_db_client.create_payload_index(
+            collection_name=COLLECTION_NAME,
+            field_name="document_id",
             field_schema=models.PayloadSchemaType.KEYWORD,
         )
