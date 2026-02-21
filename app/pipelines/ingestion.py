@@ -1,4 +1,4 @@
-"""Data ingestion pipeline: crawl result -> chunk -> embed -> store."""
+"""Data ingestion pipeline: crawl result -> chunk -> embed -> index."""
 
 from asyncio import to_thread
 from hashlib import sha256
@@ -19,7 +19,9 @@ from app.services.embedding import embed_chunks
 
 
 async def ingest(result: CrawlResult) -> None:
-    """Process a crawl result by chunking, embedding, and persisting to all stores.
+    """Chunk, embed, and index a crawl result, skipping unchanged content.
+
+    Stale vectors and parent chunks are removed before upserting updated data.
 
     Args:
         result: Crawl result containing the page URL, metadata, and markdown content.
@@ -42,7 +44,7 @@ async def ingest(result: CrawlResult) -> None:
         content_hash=content_hash,
     )
 
-    # Check if document already exists
+    # Check if document already exists and content is unchanged
     async with rel_db_session() as session:
         existing = await session.get(Document, document.id)
         if existing and existing.content_hash == content_hash:
@@ -75,7 +77,7 @@ async def ingest(result: CrawlResult) -> None:
             ContentType="text/markdown",
         )
 
-    # Delete child chunks in vector database
+    # Delete stale child chunks if existing
     if existing:
         await vec_db_client.delete(
             collection_name=COLLECTION_NAME,
@@ -110,6 +112,7 @@ async def ingest(result: CrawlResult) -> None:
         ],
     )
 
+    # Delete stale parent chunks if existing
     # Store document and parent chunks in relational database
     async with rel_db_session() as session:
         if existing:
