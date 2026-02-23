@@ -1,5 +1,10 @@
 """Central configuration constants for the RAG pipeline."""
 
+# Logging
+LOG_LEVEL: str = "INFO"
+LOG_FILENAME: str = "app.log"
+LOG_FILEMODE: str = "w"
+
 # Chunking
 PARENT_CHUNK_SIZE: int = 1024
 CHILD_CHUNK_SIZE: int = 256
