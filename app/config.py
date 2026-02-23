@@ -16,6 +16,7 @@ SPARSE_MODEL_NAME: str = "prithivida/Splade_PP_en_v1"
 
 # Searching
 OVERSAMPLING_FACTOR: float = 2.5
+TOP_K_CHUNKS: int = 10
 
 # Infrastructure
 BUCKET_NAME: str = "rag"
