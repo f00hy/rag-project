@@ -2,7 +2,12 @@
 
 from qdrant_client import models
 
-from app.config import COLLECTION_NAME, OVERSAMPLING_FACTOR, TOP_K_CHUNKS
+from app.config import (
+    COLLECTION_NAME,
+    OVERSAMPLING_FACTOR,
+    TOP_K_PREFETCH_CHUNKS,
+    TOP_K_SEARCH_CHUNKS,
+)
 from app.infra.qdrant import vec_db_client
 from app.models import Embedding
 
@@ -28,18 +33,18 @@ async def search(embedding: Embedding) -> list[str]:
                     ),
                 ),
                 using="dense",
-                limit=10,
+                limit=TOP_K_PREFETCH_CHUNKS,
             ),
             models.Prefetch(
                 query=embedding.sparse,
                 using="sparse",
-                limit=10,
+                limit=TOP_K_PREFETCH_CHUNKS,
             ),
         ],
         query=models.FusionQuery(fusion=models.Fusion.RRF),
         group_by="parent_id",
         group_size=1,
-        limit=TOP_K_CHUNKS,
+        limit=TOP_K_SEARCH_CHUNKS,
     )
 
     return [
