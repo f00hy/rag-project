@@ -1,5 +1,7 @@
 """Vector search service using Qdrant hybrid retrieval with RRF fusion."""
 
+from uuid import UUID
+
 from qdrant_client import models
 
 from app.config import (
@@ -12,14 +14,14 @@ from app.infra.qdrant import vec_db_client
 from app.models import Embedding
 
 
-async def search(embedding: Embedding) -> list[str]:
+async def search(embedding: Embedding) -> list[UUID]:
     """Run a hybrid search combining dense and sparse vectors, grouped by parent chunk ID.
 
     Args:
         embedding: Dense and sparse vectors for the query.
 
     Returns:
-        List of parent_ids for the top matching chunks.
+        List of parent chunk UUIDs for the top matching chunks.
     """
     result = await vec_db_client.query_points_groups(
         collection_name=COLLECTION_NAME,
@@ -48,7 +50,7 @@ async def search(embedding: Embedding) -> list[str]:
     )
 
     return [
-        hit.payload["parent_id"]
+        UUID(hit.payload["parent_id"])
         for hit in (group.hits[0] for group in result.groups)
         if hit.payload is not None
     ]
