@@ -19,6 +19,10 @@ OVERSAMPLING_FACTOR: float = 2.5
 TOP_K_PREFETCH_CHUNKS: int = 10
 TOP_K_SEARCH_CHUNKS: int = 10
 
+# Reranking
+CROSS_ENCODER_NAME: str = "jinaai/jina-reranker-v1-turbo-en"
+TOP_K_RERANK_CHUNKS: int = 3
+
 # Infrastructure
 BUCKET_NAME: str = "rag"
 COLLECTION_NAME: str = "child_chunk"
