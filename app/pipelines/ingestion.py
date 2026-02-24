@@ -1,6 +1,5 @@
 """Data ingestion pipeline: crawl result -> chunk -> embed -> index."""
 
-from asyncio import to_thread
 from hashlib import sha256
 from urllib.parse import urlparse
 from uuid import NAMESPACE_URL, uuid5
@@ -51,10 +50,10 @@ async def ingest(result: CrawlResult) -> None:
             return
 
     # Chunk content
-    parents, children = await to_thread(chunk, content)
+    parents, children = await chunk(content)
 
     # Embed child chunks
-    embeddings = await to_thread(embed_chunks, children)
+    embeddings = await embed_chunks(children)
 
     # Initialize parent chunk objects
     parent_chunks: list[ParentChunk] = []

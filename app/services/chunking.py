@@ -1,14 +1,17 @@
 """Text chunking service using hierarchical parent-child chunks with context overlap."""
 
-from chonkie import RecursiveChunker, OverlapRefinery
+from asyncio import to_thread
+
+from chonkie import OverlapRefinery, RecursiveChunker
 from tokenizers import Tokenizer
-from app.models import Chunk
+
 from app.config import (
-    SPARSE_MODEL_NAME,
-    PARENT_CHUNK_SIZE,
     CHILD_CHUNK_SIZE,
     OVERLAP_CONTEXT_SIZE,
+    PARENT_CHUNK_SIZE,
+    SPARSE_MODEL_NAME,
 )
+from app.models import Chunk
 
 _tokenizer = Tokenizer.from_pretrained(SPARSE_MODEL_NAME)
 
@@ -47,15 +50,7 @@ _suffix_overlapper = OverlapRefinery(
 )
 
 
-def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
-    """Split text into parent chunks with prefix/suffix context and child chunks.
-
-    Args:
-        text: Input text to chunk.
-
-    Returns:
-        Tuple of (parent_chunks, child_chunks) with relationships established.
-    """
+def _chunk_sync(text: str) -> tuple[list[Chunk], list[Chunk]]:
     parent_chunks = _parent_chunker.chunk(text)
     prefix_chunks = _prefix_overlapper.refine(parent_chunks)
     suffix_chunks = _suffix_overlapper.refine(parent_chunks)
@@ -67,7 +62,6 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
     for parent_idx, parent_chunk in enumerate(parent_chunks):
         parent_id = f"p_{parent_idx}"
 
-        # Create parent with overlapping context
         prefix_ctx = prefix_chunks[parent_idx].context or ""
         suffix_ctx = suffix_chunks[parent_idx].context or ""
         full_text = prefix_ctx + parent_chunk.text + suffix_ctx
@@ -94,3 +88,15 @@ def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
         parents.append(parent_wrapper)
 
     return parents, children
+
+
+async def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
+    """Split text into parent chunks with prefix/suffix context and child chunks.
+
+    Args:
+        text: Input text to chunk.
+
+    Returns:
+        Tuple of (parent_chunks, child_chunks) with relationships established.
+    """
+    return await to_thread(_chunk_sync, text)
