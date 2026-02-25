@@ -6,15 +6,12 @@ from uuid import NAMESPACE_URL, uuid5
 
 from crawl4ai.models import CrawlResult
 from qdrant_client import models
-from sqlmodel import col, delete
 
-from app.config import BUCKET_NAME, COLLECTION_NAME
-from app.infra.cfr2 import obj_store_client
-from app.infra.qdrant import vec_db_client
 from app.infra.supabase import rel_db_session
 from app.models import Document, ParentChunk
 from app.services.chunking import chunk
 from app.services.embedding import embed_chunks
+from app.services.indexing import index_obj_store, index_rel_db, index_vec_db
 
 
 async def ingest(result: CrawlResult) -> None:
@@ -67,58 +64,23 @@ async def ingest(result: CrawlResult) -> None:
         parent_chunks.append(parent_chunk)
         parent_id_map[parent.id] = parent_chunk
 
-    # Store content in object store
-    async with obj_store_client() as client:
-        await client.put_object(
-            Bucket=BUCKET_NAME,
-            Key=content_key,
-            Body=content,
-            ContentType="text/markdown",
+    # Build vector points
+    points = [
+        models.PointStruct(
+            id=str(uuid5(NAMESPACE_URL, f"{content_key}:{child.id}")),
+            vector={
+                "dense": embedding.dense,
+                "sparse": embedding.sparse,
+            },
+            payload={
+                "parent_id": str(parent_id_map[child.parent_id].id),
+                "document_id": str(document.id),
+            },
         )
+        for child, embedding in zip(children, embeddings)
+    ]
 
-    # Delete stale child chunks if existing
-    if existing:
-        await vec_db_client.delete(
-            collection_name=COLLECTION_NAME,
-            points_selector=models.FilterSelector(
-                filter=models.Filter(
-                    must=[
-                        models.FieldCondition(
-                            key="document_id",
-                            match=models.MatchValue(value=str(document.id)),
-                        ),
-                    ],
-                ),
-            ),
-        )
-
-    # Store child chunks in vector database
-    await vec_db_client.upsert(
-        collection_name=COLLECTION_NAME,
-        points=[
-            models.PointStruct(
-                id=str(uuid5(NAMESPACE_URL, f"{content_key}:{child.id}")),
-                vector={
-                    "dense": embedding.dense,
-                    "sparse": embedding.sparse,
-                },
-                payload={
-                    "parent_id": str(parent_id_map[child.parent_id].id),
-                    "document_id": str(document.id),
-                },
-            )
-            for child, embedding in zip(children, embeddings)
-        ],
-    )
-
-    # Delete stale parent chunks if existing
-    # Store document and parent chunks in relational database
-    async with rel_db_session() as session:
-        if existing:
-            await session.exec(
-                delete(ParentChunk).where(col(ParentChunk.document_id) == document.id)
-            )
-            await session.merge(document)
-        else:
-            session.add(document)
-        await session.commit()
+    # Index across stores
+    await index_obj_store(content_key, content)
+    await index_vec_db(points, stale_document_id=document.id if existing else None)
+    await index_rel_db(document, existing=bool(existing))
