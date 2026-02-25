@@ -1,9 +1,11 @@
 """Relational database connection and initialization for Supabase."""
 
 from os import getenv
+
+from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
 from sqlmodel import SQLModel
 from sqlmodel.ext.asyncio.session import AsyncSession
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine, async_sessionmaker
+
 from app.models import (
     Document,  # noqa: F401
     ParentChunk,  # noqa: F401

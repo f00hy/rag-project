@@ -2,6 +2,7 @@
 
 from contextlib import AbstractAsyncContextManager
 from os import getenv
+
 from aioboto3 import Session
 from types_aiobotocore_s3 import S3Client
 
