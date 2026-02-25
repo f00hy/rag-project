@@ -7,6 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: rag-dev
+    env_file:
+      - .env
     ports:
       - "${DEV_PORT}:8000"
     volumes:
@@ -24,10 +26,10 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-      postgres:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
+      # postgres:
+      #   condition: service_healthy
+      # qdrant:
+      #   condition: service_healthy
 
 networks:
   rag-net:

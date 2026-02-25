@@ -5,6 +5,8 @@ services:
   app:
     image: f00hy/rag-app:main
     container_name: rag-app
+    env_file:
+      - .env
     ports:
       - "${APP_PORT}:8000"
     networks:
@@ -19,10 +21,10 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-      postgres:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
+      # postgres:
+      #   condition: service_healthy
+      # qdrant:
+      #   condition: service_healthy
 
 networks:
   rag-net:
