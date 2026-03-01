@@ -1,5 +1,6 @@
 """Data ingestion pipeline: crawl result -> chunk -> embed -> index."""
 
+import logging
 from hashlib import sha256
 from urllib.parse import urlparse
 from uuid import NAMESPACE_URL, uuid5
@@ -13,6 +14,8 @@ from app.services.chunking import chunk
 from app.services.embedding import embed_chunks
 from app.services.indexing import index_obj_store, index_rel_db, index_vec_db
 
+logger = logging.getLogger(__name__)
+
 
 async def ingest(result: CrawlResult) -> None:
     """Chunk, embed, and index a crawl result, skipping unchanged content.
@@ -22,10 +25,13 @@ async def ingest(result: CrawlResult) -> None:
     Args:
         result: Crawl result containing the page URL, metadata, and markdown content.
     """
+    logger.info("Ingesting crawl result for %s", result.url)
+
     # Extract content
     title = result.metadata.get("title") if result.metadata else result.url
     content = result.markdown.fit_markdown or ""
     if not content:
+        logger.warning("Empty content for %s — skipping", result.url)
         return
     content_hash = sha256(content.encode("utf-8")).hexdigest()
     parsed_url = urlparse(result.url)
@@ -44,6 +50,7 @@ async def ingest(result: CrawlResult) -> None:
     async with rel_db_session() as session:
         existing = await session.get(Document, document.id)
         if existing and existing.content_hash == content_hash:
+            logger.debug("Content unchanged for %s — skipping", result.url)
             return
 
     # Chunk content
@@ -84,3 +91,5 @@ async def ingest(result: CrawlResult) -> None:
     await index_obj_store(content_key, content)
     await index_vec_db(points, stale_document_id=document.id if existing else None)
     await index_rel_db(document, existing=bool(existing))
+
+    logger.debug("Ingestion complete for %s", result.url)

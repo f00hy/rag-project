@@ -1,5 +1,6 @@
 """Text embedding service using hybrid dense and sparse embeddings."""
 
+import logging
 from asyncio import to_thread
 
 from fastembed import SparseTextEmbedding, TextEmbedding
@@ -7,6 +8,8 @@ from qdrant_client.models import SparseVector
 
 from app.config import DENSE_MODEL_NAME, SPARSE_MODEL_NAME
 from app.models import Chunk, Embedding
+
+logger = logging.getLogger(__name__)
 
 _dense_model = TextEmbedding(model_name=DENSE_MODEL_NAME)
 _sparse_model = SparseTextEmbedding(model_name=SPARSE_MODEL_NAME)
@@ -40,7 +43,10 @@ async def embed_chunks(chunks: list[Chunk]) -> list[Embedding]:
     Returns:
         List of embeddings with both dense and sparse vectors.
     """
-    return await to_thread(_embed_chunks_sync, chunks)
+    logger.info("Embedding %d chunks", len(chunks))
+    embeddings = await to_thread(_embed_chunks_sync, chunks)
+    logger.debug("Embedding complete for %d chunks", len(embeddings))
+    return embeddings
 
 
 def _embed_query_sync(query: str) -> Embedding:
@@ -64,4 +70,7 @@ async def embed_query(query: str) -> Embedding:
     Returns:
         Embedding with both dense and sparse vectors.
     """
-    return await to_thread(_embed_query_sync, query)
+    logger.info("Embedding query")
+    embedding = await to_thread(_embed_query_sync, query)
+    logger.debug("Query embedding complete")
+    return embedding

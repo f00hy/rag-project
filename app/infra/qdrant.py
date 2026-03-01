@@ -1,10 +1,13 @@
 """Vector database connection and initialization for Qdrant."""
 
+import logging
 from os import getenv
 
 from qdrant_client import AsyncQdrantClient, models
 
 from app.config import COLLECTION_NAME, DENSE_MODEL_NAME
+
+logger = logging.getLogger(__name__)
 
 vec_db_client = AsyncQdrantClient(
     url=(getenv("QDRANT_URL", ":memory:")),
@@ -18,6 +21,7 @@ vec_db_client = AsyncQdrantClient(
 async def init_vec_db() -> None:
     """Create the collection if it doesn't exist, with dense and sparse vector configs, scalar quantization, and payload indexes."""
     if not await vec_db_client.collection_exists(COLLECTION_NAME):
+        logger.info("Creating Qdrant collection '%s'", COLLECTION_NAME)
         await vec_db_client.create_collection(
             collection_name=COLLECTION_NAME,
             vectors_config={
@@ -55,4 +59,9 @@ async def init_vec_db() -> None:
             collection_name=COLLECTION_NAME,
             field_name="document_id",
             field_schema=models.PayloadSchemaType.KEYWORD,
+        )
+        logger.debug("Collection '%s' created with payload indexes", COLLECTION_NAME)
+    else:
+        logger.info(
+            "Collection '%s' already exists, skipping creation", COLLECTION_NAME
         )

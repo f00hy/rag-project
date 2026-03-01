@@ -1,5 +1,6 @@
 """Text chunking service using hierarchical parent-child chunks with context overlap."""
 
+import logging
 from asyncio import to_thread
 
 from chonkie import OverlapRefinery, RecursiveChunker
@@ -12,6 +13,8 @@ from app.config import (
     SPARSE_MODEL_NAME,
 )
 from app.models import Chunk
+
+logger = logging.getLogger(__name__)
 
 _tokenizer = Tokenizer.from_pretrained(SPARSE_MODEL_NAME)
 
@@ -99,4 +102,9 @@ async def chunk(text: str) -> tuple[list[Chunk], list[Chunk]]:
     Returns:
         Tuple of (parent_chunks, child_chunks) with relationships established.
     """
-    return await to_thread(_chunk_sync, text)
+    logger.info("Chunking text of length %d", len(text))
+    parents, children = await to_thread(_chunk_sync, text)
+    logger.debug(
+        "Chunking complete — %d parents, %d children", len(parents), len(children)
+    )
+    return parents, children

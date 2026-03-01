@@ -1,11 +1,14 @@
 """Rerank retrieved chunks using a cross-encoder model."""
 
+import logging
 from asyncio import to_thread
 
 from fastembed.rerank.cross_encoder import TextCrossEncoder
 
 from app.config import CROSS_ENCODER_NAME, TOP_K_RERANK_CHUNKS
 from app.models import ParentChunk
+
+logger = logging.getLogger(__name__)
 
 _cross_encoder = TextCrossEncoder(model_name=CROSS_ENCODER_NAME)
 
@@ -27,4 +30,9 @@ async def rerank(query: str, parent_chunks: list[ParentChunk]) -> list[ParentChu
     Returns:
         Top-k parent chunks sorted by descending relevance score.
     """
-    return await to_thread(_rerank_sync, query, parent_chunks)
+    logger.info(
+        "Reranking %d chunks (top_k=%d)", len(parent_chunks), TOP_K_RERANK_CHUNKS
+    )
+    result = await to_thread(_rerank_sync, query, parent_chunks)
+    logger.debug("Reranking complete — returning %d chunks", len(result))
+    return result

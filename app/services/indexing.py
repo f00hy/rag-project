@@ -45,6 +45,9 @@ async def index_obj_store(content_key: str, content: str) -> None:
         content_key: Object storage key for the content.
         content: Markdown string to store.
     """
+    logger.info(
+        "Storing content in R2: key=%s, size=%d bytes", content_key, len(content)
+    )
     async with obj_store_client() as client:
         await client.put_object(
             Bucket=BUCKET_NAME,
@@ -52,6 +55,7 @@ async def index_obj_store(content_key: str, content: str) -> None:
             Body=content,
             ContentType="text/markdown",
         )
+    logger.debug("R2 put_object completed for key=%s", content_key)
 
 
 @_retry
@@ -68,6 +72,11 @@ async def index_vec_db(
         points: Qdrant point structs to upsert.
         stale_document_id: Document whose old vectors should be removed first.
     """
+    logger.info(
+        "Storing %d point(s) into vector DB (stale_document_id=%s)",
+        len(points),
+        stale_document_id,
+    )
     if stale_document_id:
         await vec_db_client.delete(
             collection_name=COLLECTION_NAME,
@@ -82,7 +91,9 @@ async def index_vec_db(
                 ),
             ),
         )
+        logger.debug("Deleted stale vectors for document_id=%s", stale_document_id)
     await vec_db_client.upsert(collection_name=COLLECTION_NAME, points=points)
+    logger.debug("Vector DB upsert completed for %d points", len(points))
 
 
 @_retry
@@ -99,6 +110,13 @@ async def index_rel_db(
         document: Document model instance (with nested parent chunks).
         existing: Whether this is an update to an existing document.
     """
+    num_chunks = len(document.parent_chunks) if document.parent_chunks else 0
+    logger.info(
+        "Storing document to relational DB: id=%s, existing=%s, parent_chunks=%d",
+        document.id,
+        existing,
+        num_chunks,
+    )
     async with rel_db_session() as session:
         if existing:
             await session.exec(
@@ -108,3 +126,4 @@ async def index_rel_db(
         else:
             session.add(document)
         await session.commit()
+    logger.debug("Relational DB commit completed for document_id=%s", document.id)

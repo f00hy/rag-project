@@ -72,4 +72,4 @@ async def crawl(start_url: str) -> AsyncGenerator[CrawlResult]:
                 logger.warning(
                     "Failed to crawl %s: %s", result.url, result.error_message
                 )
-    logger.info("Crawl finished — %d pages crawled successfully", page_count)
+    logger.debug("Crawl finished — %d pages crawled successfully", page_count)

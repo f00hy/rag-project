@@ -1,5 +1,6 @@
 """Relational database connection and initialization for Supabase."""
 
+import logging
 from os import getenv
 
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
@@ -10,6 +11,8 @@ from app.models import (
     Document,  # noqa: F401
     ParentChunk,  # noqa: F401
 )  # Imports needed for SQLModel metadata registration
+
+logger = logging.getLogger(__name__)
 
 _engine: AsyncEngine = create_async_engine(
     getenv("SUPABASE_URL", "sqlite+aiosqlite://")
@@ -22,5 +25,7 @@ rel_db_session = async_sessionmaker(
 
 async def init_rel_db() -> None:
     """Create all database tables defined in SQLModel metadata."""
+    logger.info("Initializing relational database tables")
     async with _engine.begin() as conn:
         await conn.run_sync(SQLModel.metadata.create_all)
+    logger.debug("Relational database tables created successfully")
