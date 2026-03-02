@@ -22,7 +22,7 @@
 - uv for package management
 - ruff for formatting and linting
 - ty for type checking
-- pre-commit framework for Git hooks management
+- pre-commit for Git hooks management
 - GitHub Actions, Docker, Docker Compose for CI/CD
 - Git for version control
 
