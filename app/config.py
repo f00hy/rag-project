@@ -5,6 +5,9 @@ LOG_LEVEL: str = "INFO"
 LOG_FILENAME: str = "app.log"
 LOG_FILEMODE: str = "w"
 
+# Crawling
+MAX_PAGES: int = 100
+
 # Chunking
 PARENT_CHUNK_SIZE: int = 1024
 CHILD_CHUNK_SIZE: int = 256

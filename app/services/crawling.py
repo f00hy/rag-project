@@ -14,6 +14,8 @@ from crawl4ai.content_filter_strategy import PruningContentFilter
 from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
 from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
 
+from app.config import MAX_PAGES
+
 logger = logging.getLogger(__name__)
 
 browser_config = BrowserConfig(headless=True, verbose=False)
@@ -30,7 +32,7 @@ md_generator = DefaultMarkdownGenerator(
 strategy = BFSDeepCrawlStrategy(
     max_depth=3,
     include_external=False,
-    max_pages=100,
+    max_pages=MAX_PAGES,
 )
 
 run_config = CrawlerRunConfig(
