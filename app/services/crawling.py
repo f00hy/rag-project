@@ -13,6 +13,7 @@ from crawl4ai import (
 from crawl4ai.content_filter_strategy import PruningContentFilter
 from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
 from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+from pydantic import HttpUrl
 
 from app.config import MAX_PAGES
 
@@ -29,34 +30,53 @@ md_generator = DefaultMarkdownGenerator(
     },
 )
 
-strategy = BFSDeepCrawlStrategy(
-    max_depth=3,
-    include_external=False,
-    max_pages=MAX_PAGES,
-)
 
-run_config = CrawlerRunConfig(
-    cache_mode=CacheMode.BYPASS,
-    page_timeout=30000,  # 30 seconds
-    remove_overlay_elements=True,
-    exclude_external_links=True,
-    preserve_https_for_internal_links=True,
-    check_robots_txt=True,
-    markdown_generator=md_generator,
-    deep_crawl_strategy=strategy,
-    stream=True,
-)
+def _make_strategy_and_config(
+    max_pages: int,
+) -> tuple[BFSDeepCrawlStrategy, CrawlerRunConfig]:
+    """Build crawl strategy and run config for crawling.
+
+    Args:
+        max_pages: Maximum number of pages to crawl.
+
+    Returns:
+        A tuple containing:
+        - BFSDeepCrawlStrategy: The configured deep crawl strategy.
+        - CrawlerRunConfig: The run configuration using that strategy.
+    """
+    strategy = BFSDeepCrawlStrategy(
+        max_depth=3,
+        include_external=False,
+        max_pages=max_pages,
+    )
+    run_config = CrawlerRunConfig(
+        cache_mode=CacheMode.BYPASS,
+        page_timeout=30000,  # 30 seconds
+        remove_overlay_elements=True,
+        exclude_external_links=True,
+        preserve_https_for_internal_links=True,
+        check_robots_txt=True,
+        markdown_generator=md_generator,
+        deep_crawl_strategy=strategy,
+        stream=True,
+    )
+    return strategy, run_config
 
 
-async def crawl(start_url: str) -> AsyncGenerator[CrawlResult]:
+async def crawl(
+    start_url: HttpUrl,
+    max_pages: int = MAX_PAGES,
+) -> AsyncGenerator[CrawlResult]:
     """Deep-crawl a site via BFS starting from the given URL.
 
     Args:
         start_url: Root URL to begin crawling from.
+        max_pages: Per-crawl page limit.
 
     Yields:
         CrawlResult: Successfully crawled page results.
     """
+    strategy, run_config = _make_strategy_and_config(max_pages)
     logger.info(
         "Starting BFS crawl from %s (max_depth=%d, max_pages=%d)",
         start_url,
