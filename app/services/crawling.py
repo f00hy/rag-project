@@ -74,7 +74,7 @@ async def crawl(
         max_pages: Per-crawl page limit.
 
     Yields:
-        CrawlResult: Successfully crawled page results.
+        CrawlResult: Per-page crawl results.
     """
     strategy, run_config = _make_strategy_and_config(max_pages)
     logger.info(
@@ -89,9 +89,9 @@ async def crawl(
             if result.success:
                 page_count += 1
                 logger.debug("Crawled page %d: %s", page_count, result.url)
-                yield result
             else:
                 logger.warning(
                     "Failed to crawl %s: %s", result.url, result.error_message
                 )
+            yield result
     logger.debug("Crawl finished — %d pages crawled successfully", page_count)
