@@ -85,7 +85,7 @@ async def crawl(
     )
     page_count = 0
     async with AsyncWebCrawler(config=browser_config) as crawler:
-        async for result in await crawler.arun(url=start_url, config=run_config):
+        async for result in await crawler.arun(url=str(start_url), config=run_config):
             if result.success:
                 page_count += 1
                 logger.debug("Crawled page %d: %s", page_count, result.url)
