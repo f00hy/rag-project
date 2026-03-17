@@ -11,7 +11,7 @@
 <header>
     <div class="content">
         <h1>Coverage report:
-            <span class="pc_cov">86%</span>
+            <span class="pc_cov">94%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -27,6 +27,8 @@
                         <kbd>s</kbd>
                         <kbd>m</kbd>
                         <kbd>x</kbd>
+                        <kbd>b</kbd>
+                        <kbd>p</kbd>
                         <kbd>c</kbd>
                         &nbsp; change column sorting
                     </p>
@@ -55,40 +57,260 @@
         </h2>
         <p class="text">
             <a class="nav" href="https://coverage.readthedocs.io/en/7.13.1">coverage.py v7.13.1</a>,
-            created at 2026-01-26 16:20 +0000
+            created at 2026-03-17 11:49 +0000
         </p>
     </div>
 </header>
 <main id="index">
     <table class="index" data-sortable>
         <thead>
+            <tr class="tablehead grouphead">
+                <th class="spacer">&nbsp;</th>
+                <th class="spacer">&nbsp;</th>
+                <th class="spacer">&nbsp;</th>
+                <th class="left" colspan="4">Statements</th>
+                <th class="spacer">&nbsp;</th>
+                <th class="left" colspan="3">Branches</th>
+                <th class="spacer">&nbsp;</th>
+                <th>Total</th>
+            </tr>
             <tr class="tablehead" title="Click to sort">
                 <th id="file" class="name" aria-sort="none" data-shortcut="f">File<span class="arrows"></span></th>
                 <th id="region" class="name" aria-sort="none" data-default-sort-order="ascending" data-shortcut="n">function<span class="arrows"></span></th>
                 <th class="spacer">&nbsp;</th>
+                <th id="statements_coverage" aria-sort="none" data-default-sort-order="descending">coverage<span class="arrows"></span></th>
                 <th id="statements" aria-sort="none" data-default-sort-order="descending" data-shortcut="s">statements<span class="arrows"></span></th>
                 <th id="missing" aria-sort="none" data-default-sort-order="descending" data-shortcut="m">missing<span class="arrows"></span></th>
                 <th id="excluded" aria-sort="none" data-default-sort-order="descending" data-shortcut="x">excluded<span class="arrows"></span></th>
+                <th class="spacer">&nbsp;</th>
+                <th id="branches_coverage" aria-sort="none" data-default-sort-order="descending">coverage<span class="arrows"></span></th>
+                <th id="branches" aria-sort="none" data-default-sort-order="descending" data-shortcut="b">branches<span class="arrows"></span></th>
+                <th id="partial" aria-sort="none" data-default-sort-order="descending" data-shortcut="p">partial<span class="arrows"></span></th>
                 <th class="spacer">&nbsp;</th>
                 <th id="coverage" aria-sort="none" data-shortcut="c">coverage<span class="arrows"></span></th>
             </tr>
         </thead>
         <tbody>
             <tr class="region">
-                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t7">app&#8201;/&#8201;main.py</a></td>
-                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t7"><data value='read_root'>read_root</data></a></td>
+                <td class="name"><a href="z_cfb6adc3f81c8e3c_main_py.html">app&#8201;/&#8201;api&#8201;/&#8201;main.py</a></td>
+                <td class="name"><a href="z_cfb6adc3f81c8e3c_main_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
                 <td class="spacer">&nbsp;</td>
-                <td>1</td>
-                <td>1</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
                 <td>0</td>
                 <td class="spacer">&nbsp;</td>
-                <td data-ratio="0 1">0%</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
             </tr>
             <tr class="region">
-                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t11">app&#8201;/&#8201;main.py</a></td>
-                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t11"><data value='main'>main</data></a></td>
+                <td class="name"><a href="z_7bced6e93b6b263d_crawl_py.html#t18">app&#8201;/&#8201;api&#8201;/&#8201;routes&#8201;/&#8201;crawl.py</a></td>
+                <td class="name"><a href="z_7bced6e93b6b263d_crawl_py.html#t18"><data value='crawl_endpoint'>crawl_endpoint</data></a></td>
                 <td class="spacer">&nbsp;</td>
+                <td data-ratio="15 15">100%</td>
+                <td>15</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="19 19">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_7bced6e93b6b263d_crawl_py.html">app&#8201;/&#8201;api&#8201;/&#8201;routes&#8201;/&#8201;crawl.py</a></td>
+                <td class="name"><a href="z_7bced6e93b6b263d_crawl_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="10 10">100%</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="10 10">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_cfb6adc3f81c8e3c_schemas_py.html">app&#8201;/&#8201;api&#8201;/&#8201;schemas.py</a></td>
+                <td class="name"><a href="z_cfb6adc3f81c8e3c_schemas_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_5f5a17c013354698_config_py.html">app&#8201;/&#8201;config.py</a></td>
+                <td class="name"><a href="z_5f5a17c013354698_config_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="16 16">100%</td>
+                <td>16</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="16 16">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_fc22f0d6bdf50140_cfr2_py.html#t15">app&#8201;/&#8201;infra&#8201;/&#8201;cfr2.py</a></td>
+                <td class="name"><a href="z_fc22f0d6bdf50140_cfr2_py.html#t15"><data value='obj_store_client'>obj_store_client</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 2">0%</td>
+                <td>2</td>
+                <td>2</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 2">0%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_fc22f0d6bdf50140_cfr2_py.html">app&#8201;/&#8201;infra&#8201;/&#8201;cfr2.py</a></td>
+                <td class="name"><a href="z_fc22f0d6bdf50140_cfr2_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="8 8">100%</td>
+                <td>8</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="8 8">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_fc22f0d6bdf50140_qdrant_py.html#t21">app&#8201;/&#8201;infra&#8201;/&#8201;qdrant.py</a></td>
+                <td class="name"><a href="z_fc22f0d6bdf50140_qdrant_py.html#t21"><data value='init_vec_db'>init_vec_db</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 7">0%</td>
+                <td>7</td>
+                <td>7</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 2">0%</td>
+                <td>2</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 9">0%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_fc22f0d6bdf50140_qdrant_py.html">app&#8201;/&#8201;infra&#8201;/&#8201;qdrant.py</a></td>
+                <td class="name"><a href="z_fc22f0d6bdf50140_qdrant_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="7 7">100%</td>
+                <td>7</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="7 7">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_fc22f0d6bdf50140_supabase_py.html#t26">app&#8201;/&#8201;infra&#8201;/&#8201;supabase.py</a></td>
+                <td class="name"><a href="z_fc22f0d6bdf50140_supabase_py.html#t26"><data value='init_rel_db'>init_rel_db</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 4">0%</td>
+                <td>4</td>
+                <td>4</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 4">0%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_fc22f0d6bdf50140_supabase_py.html">app&#8201;/&#8201;infra&#8201;/&#8201;supabase.py</a></td>
+                <td class="name"><a href="z_fc22f0d6bdf50140_supabase_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="10 10">100%</td>
+                <td>10</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="10 10">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_5f5a17c013354698_logging_config_py.html#t7">app&#8201;/&#8201;logging_config.py</a></td>
+                <td class="name"><a href="z_5f5a17c013354698_logging_config_py.html#t7"><data value='config_logging'>config_logging</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="1 1">100%</td>
                 <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="1 1">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_5f5a17c013354698_logging_config_py.html">app&#8201;/&#8201;logging_config.py</a></td>
+                <td class="name"><a href="z_5f5a17c013354698_logging_config_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="3 3">100%</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="3 3">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t24">app&#8201;/&#8201;main.py</a></td>
+                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t24"><data value='lifespan'>lifespan</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 10">0%</td>
+                <td>10</td>
+                <td>10</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 10">0%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t52">app&#8201;/&#8201;main.py</a></td>
+                <td class="name"><a href="z_5f5a17c013354698_main_py.html#t52"><data value='read_health'>read_health</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="1 1">100%</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
                 <td>0</td>
                 <td>0</td>
                 <td class="spacer">&nbsp;</td>
@@ -98,11 +320,406 @@
                 <td class="name"><a href="z_5f5a17c013354698_main_py.html">app&#8201;/&#8201;main.py</a></td>
                 <td class="name"><a href="z_5f5a17c013354698_main_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
                 <td class="spacer">&nbsp;</td>
-                <td>5</td>
+                <td data-ratio="19 19">100%</td>
+                <td>19</td>
                 <td>0</td>
                 <td>0</td>
                 <td class="spacer">&nbsp;</td>
-                <td data-ratio="5 5">100%</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="19 19">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_5f5a17c013354698_models_py.html">app&#8201;/&#8201;models.py</a></td>
+                <td class="name"><a href="z_5f5a17c013354698_models_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="22 22">100%</td>
+                <td>22</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="22 22">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_d85cb2c1c38d921b_ingestion_py.html#t20">app&#8201;/&#8201;pipelines&#8201;/&#8201;ingestion.py</a></td>
+                <td class="name"><a href="z_d85cb2c1c38d921b_ingestion_py.html#t20"><data value='ingest'>ingest</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="28 28">100%</td>
+                <td>28</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="6 6">100%</td>
+                <td>6</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="34 34">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_d85cb2c1c38d921b_ingestion_py.html">app&#8201;/&#8201;pipelines&#8201;/&#8201;ingestion.py</a></td>
+                <td class="name"><a href="z_d85cb2c1c38d921b_ingestion_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="13 13">100%</td>
+                <td>13</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="13 13">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_d85cb2c1c38d921b_retrieval_py.html#t16">app&#8201;/&#8201;pipelines&#8201;/&#8201;retrieval.py</a></td>
+                <td class="name"><a href="z_d85cb2c1c38d921b_retrieval_py.html#t16"><data value='retrieve'>retrieve</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="15 15">100%</td>
+                <td>15</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="19 19">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_d85cb2c1c38d921b_retrieval_py.html">app&#8201;/&#8201;pipelines&#8201;/&#8201;retrieval.py</a></td>
+                <td class="name"><a href="z_d85cb2c1c38d921b_retrieval_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_chunking_py.html#t56">app&#8201;/&#8201;services&#8201;/&#8201;chunking.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_chunking_py.html#t56"><data value='chunk_sync'>_chunk_sync</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="20 20">100%</td>
+                <td>20</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="24 24">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_chunking_py.html#t96">app&#8201;/&#8201;services&#8201;/&#8201;chunking.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_chunking_py.html#t96"><data value='chunk'>chunk</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_chunking_py.html">app&#8201;/&#8201;services&#8201;/&#8201;chunking.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_chunking_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="14 14">100%</td>
+                <td>14</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="14 14">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_crawling_py.html#t34">app&#8201;/&#8201;services&#8201;/&#8201;crawling.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_crawling_py.html#t34"><data value='make_strategy_and_config'>_make_strategy_and_config</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="3 3">100%</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="3 3">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_crawling_py.html#t66">app&#8201;/&#8201;services&#8201;/&#8201;crawling.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_crawling_py.html#t66"><data value='crawl'>crawl</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="11 11">100%</td>
+                <td>11</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="15 15">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_crawling_py.html">app&#8201;/&#8201;services&#8201;/&#8201;crawling.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_crawling_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="13 13">100%</td>
+                <td>13</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="13 13">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t18">app&#8201;/&#8201;services&#8201;/&#8201;embedding.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t18"><data value='embed_chunks_sync'>_embed_chunks_sync</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t37">app&#8201;/&#8201;services&#8201;/&#8201;embedding.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t37"><data value='embed_chunks'>embed_chunks</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t52">app&#8201;/&#8201;services&#8201;/&#8201;embedding.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t52"><data value='embed_query_sync'>_embed_query_sync</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="3 3">100%</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="3 3">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t64">app&#8201;/&#8201;services&#8201;/&#8201;embedding.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html#t64"><data value='embed_query'>embed_query</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html">app&#8201;/&#8201;services&#8201;/&#8201;embedding.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_embedding_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="13 13">100%</td>
+                <td>13</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="13 13">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t19">app&#8201;/&#8201;services&#8201;/&#8201;indexing.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t19"><data value='log_failure'>_log_failure</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 1">0%</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 1">0%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t41">app&#8201;/&#8201;services&#8201;/&#8201;indexing.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t41"><data value='index_obj_store'>index_obj_store</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t62">app&#8201;/&#8201;services&#8201;/&#8201;indexing.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t62"><data value='index_vec_db'>index_vec_db</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="6 6">100%</td>
+                <td>6</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="2 2">100%</td>
+                <td>2</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="8 8">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t100">app&#8201;/&#8201;services&#8201;/&#8201;indexing.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html#t100"><data value='index_rel_db'>index_rel_db</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="2 2">100%</td>
+                <td>2</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="11 11">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html">app&#8201;/&#8201;services&#8201;/&#8201;indexing.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_indexing_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="19 19">100%</td>
+                <td>19</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="19 19">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_reranking_py.html#t16">app&#8201;/&#8201;services&#8201;/&#8201;reranking.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_reranking_py.html#t16"><data value='rerank_sync'>_rerank_sync</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_reranking_py.html#t23">app&#8201;/&#8201;services&#8201;/&#8201;reranking.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_reranking_py.html#t23"><data value='rerank'>rerank</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="4 4">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_reranking_py.html">app&#8201;/&#8201;services&#8201;/&#8201;reranking.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_reranking_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_searching_py.html#t20">app&#8201;/&#8201;services&#8201;/&#8201;searching.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_searching_py.html#t20"><data value='search'>search</data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="7 7">100%</td>
+                <td>7</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="2 2">100%</td>
+                <td>2</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="9 9">100%</td>
+            </tr>
+            <tr class="region">
+                <td class="name"><a href="z_c318f3fa19a49f69_searching_py.html">app&#8201;/&#8201;services&#8201;/&#8201;searching.py</a></td>
+                <td class="name"><a href="z_c318f3fa19a49f69_searching_py.html"><data value=''><span class='no-noun'>(no function)</span></data></a></td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="8 8">100%</td>
+                <td>8</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="8 8">100%</td>
             </tr>
         </tbody>
         <tfoot>
@@ -110,11 +727,16 @@
                 <td class="name">Total</td>
                 <td class="name">&nbsp;</td>
                 <td class="spacer">&nbsp;</td>
-                <td>7</td>
-                <td>1</td>
+                <td data-ratio="353 377">94%</td>
+                <td>377</td>
+                <td>24</td>
                 <td>0</td>
                 <td class="spacer">&nbsp;</td>
-                <td data-ratio="6 7">86%</td>
+                <td data-ratio="28 30">93%</td>
+                <td>30</td>
+                <td>0</td>
+                <td class="spacer">&nbsp;</td>
+                <td data-ratio="381 407">94%</td>
             </tr>
         </tfoot>
     </table>
@@ -126,7 +748,7 @@
     <div class="content">
         <p>
             <a class="nav" href="https://coverage.readthedocs.io/en/7.13.1">coverage.py v7.13.1</a>,
-            created at 2026-01-26 16:20 +0000
+            created at 2026-03-17 11:49 +0000
         </p>
     </div>
     <aside class="hidden">

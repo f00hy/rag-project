@@ -2,11 +2,33 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/f00hy/rag-project/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                |    Stmts |     Miss |   Cover |   Missing |
-|-------------------- | -------: | -------: | ------: | --------: |
-| app/\_\_init\_\_.py |        0 |        0 |    100% |           |
-| app/main.py         |        7 |        1 |     86% |         8 |
-| **TOTAL**           |    **7** |    **1** | **86%** |           |
+| Name                           |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
+|------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
+| app/\_\_init\_\_.py            |        0 |        0 |        0 |        0 |    100% |           |
+| app/api/\_\_init\_\_.py        |        0 |        0 |        0 |        0 |    100% |           |
+| app/api/main.py                |        4 |        0 |        0 |        0 |    100% |           |
+| app/api/routes/\_\_init\_\_.py |        0 |        0 |        0 |        0 |    100% |           |
+| app/api/routes/crawl.py        |       25 |        0 |        4 |        0 |    100% |           |
+| app/api/schemas.py             |        9 |        0 |        0 |        0 |    100% |           |
+| app/config.py                  |       16 |        0 |        0 |        0 |    100% |           |
+| app/infra/\_\_init\_\_.py      |        0 |        0 |        0 |        0 |    100% |           |
+| app/infra/cfr2.py              |       10 |        2 |        0 |        0 |     80% |     17-18 |
+| app/infra/qdrant.py            |       14 |        7 |        2 |        0 |     44% |     23-65 |
+| app/infra/supabase.py          |       14 |        4 |        0 |        0 |     71% |     28-31 |
+| app/logging\_config.py         |        4 |        0 |        0 |        0 |    100% |           |
+| app/main.py                    |       30 |       10 |        0 |        0 |     67% |     33-43 |
+| app/models.py                  |       22 |        0 |        0 |        0 |    100% |           |
+| app/pipelines/\_\_init\_\_.py  |        0 |        0 |        0 |        0 |    100% |           |
+| app/pipelines/ingestion.py     |       41 |        0 |        6 |        0 |    100% |           |
+| app/pipelines/retrieval.py     |       24 |        0 |        4 |        0 |    100% |           |
+| app/services/\_\_init\_\_.py   |        0 |        0 |        0 |        0 |    100% |           |
+| app/services/chunking.py       |       38 |        0 |        4 |        0 |    100% |           |
+| app/services/crawling.py       |       27 |        0 |        4 |        0 |    100% |           |
+| app/services/embedding.py      |       28 |        0 |        0 |        0 |    100% |           |
+| app/services/indexing.py       |       39 |        1 |        4 |        0 |     98% |        25 |
+| app/services/reranking.py      |       17 |        0 |        0 |        0 |    100% |           |
+| app/services/searching.py      |       15 |        0 |        2 |        0 |    100% |           |
+| **TOTAL**                      |  **377** |   **24** |   **30** |    **0** | **94%** |           |
 
 
 ## Setup coverage badge
