@@ -24,8 +24,11 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked
 
 ENV PATH=/app/.venv/bin:$PATH
+ENV PLAYWRIGHT_BROWSERS_PATH=/app/.playwright
 ENV FASTEMBED_CACHE_PATH=/app/.cache/fastembed
 ENV HF_HOME=/app/.cache/huggingface
+
+RUN playwright install chromium
 
 RUN python -c "\
 from fastembed import TextEmbedding, SparseTextEmbedding;\
@@ -44,8 +47,11 @@ COPY --from=builder --chown=nonroot:nonroot /app /app
 
 ENV PYTHONUNBUFFERED=1
 ENV PATH=/app/.venv/bin:$PATH
+ENV PLAYWRIGHT_BROWSERS_PATH=/app/.playwright
 ENV FASTEMBED_CACHE_PATH=/app/.cache/fastembed
 ENV HF_HOME=/app/.cache/huggingface
+
+RUN playwright install-deps chromium
 
 USER nonroot
 
