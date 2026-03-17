@@ -10,7 +10,7 @@ from app.config import COLLECTION_NAME, DENSE_MODEL_NAME
 logger = logging.getLogger(__name__)
 
 vec_db_client = AsyncQdrantClient(
-    url=(getenv("QDRANT_URL", ":memory:")),
+    location=(getenv("QDRANT_URL", ":memory:")),
     api_key=(getenv("QDRANT_API_KEY", None)),
     prefer_grpc=True,
     https=True,
