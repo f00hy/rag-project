@@ -1,11 +1,16 @@
 """Object storage connection for Cloudflare R2."""
 
+from __future__ import annotations
+
 import logging
 from contextlib import AbstractAsyncContextManager
 from os import getenv
+from typing import TYPE_CHECKING
 
 from aioboto3 import Session
-from types_aiobotocore_s3 import S3Client
+
+if TYPE_CHECKING:
+    from types_aiobotocore_s3 import S3Client
 
 logger = logging.getLogger(__name__)
 
