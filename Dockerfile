@@ -27,13 +27,13 @@ ENV FASTEMBED_CACHE_PATH=/app/.cache/fastembed
 ENV HF_HOME=/app/.cache/huggingface
 
 RUN python -c "\
-    from fastembed import TextEmbedding, SparseTextEmbedding; \
-    from fastembed.rerank.cross_encoder import TextCrossEncoder; \
-    from tokenizers import Tokenizer; \
-    TextEmbedding('BAAI/bge-base-en-v1.5'); \
-    SparseTextEmbedding('prithivida/Splade_PP_en_v1'); \
-    TextCrossEncoder('jinaai/jina-reranker-v1-turbo-en'); \
-    Tokenizer.from_pretrained('prithivida/Splade_PP_en_v1')"
+from fastembed import TextEmbedding, SparseTextEmbedding;\
+from fastembed.rerank.cross_encoder import TextCrossEncoder;\
+from tokenizers import Tokenizer;\
+TextEmbedding('BAAI/bge-base-en-v1.5');\
+SparseTextEmbedding('prithivida/Splade_PP_en_v1');\
+TextCrossEncoder('jinaai/jina-reranker-v1-turbo-en');\
+Tokenizer.from_pretrained('prithivida/Splade_PP_en_v1')"
 
 
 # Runtime stage
