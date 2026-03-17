@@ -10,7 +10,8 @@ services:
     env_file:
       - .env
     ports:
-      - "${DEV_PORT}:8000"
+      # Avoid listening on IPV6 addresses due to WSL2 limitations
+      - "127.0.0.1:${DEV_PORT}:8000"
     volumes:
       - ./app:/app/app
       - ./tests:/app/tests
@@ -33,3 +34,7 @@ services:
 
 networks:
   rag-net:
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: "fd00:dead:beef::/48"

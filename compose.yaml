@@ -8,7 +8,8 @@ services:
     env_file:
       - .env
     ports:
-      - "${APP_PORT}:8000"
+      # Avoid listening on IPV6 addresses due to WSL2 limitations
+      - "127.0.0.1:${APP_PORT}:8000"
     networks:
       - rag-net
     restart: unless-stopped
@@ -28,3 +29,7 @@ services:
 
 networks:
   rag-net:
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: "fd00:dead:beef::/48"
