@@ -28,7 +28,7 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/app/.playwright
 ENV FASTEMBED_CACHE_PATH=/app/.cache/fastembed
 ENV HF_HOME=/app/.cache/huggingface
 
-RUN playwright install chromium
+RUN playwright install --with-deps chromium
 
 RUN python -c "\
 from fastembed import TextEmbedding, SparseTextEmbedding;\
@@ -44,14 +44,15 @@ Tokenizer.from_pretrained('prithivida/Splade_PP_en_v1')"
 FROM dhi.io/python:3.12-debian13
 
 COPY --from=builder --chown=nonroot:nonroot /app /app
+COPY --from=builder /usr/lib/ /usr/lib/
+COPY --from=builder /usr/share/fonts/ /usr/share/fonts/
+COPY --from=builder /etc/fonts/ /etc/fonts/
 
 ENV PYTHONUNBUFFERED=1
 ENV PATH=/app/.venv/bin:$PATH
 ENV PLAYWRIGHT_BROWSERS_PATH=/app/.playwright
 ENV FASTEMBED_CACHE_PATH=/app/.cache/fastembed
 ENV HF_HOME=/app/.cache/huggingface
-
-RUN playwright install-deps chromium
 
 USER nonroot
 
