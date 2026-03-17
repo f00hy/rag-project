@@ -28,7 +28,10 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/app/.playwright
 ENV FASTEMBED_CACHE_PATH=/app/.cache/fastembed
 ENV HF_HOME=/app/.cache/huggingface
 
-RUN playwright install --with-deps chromium
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends init-system-helpers \
+    && rm -rf /var/lib/apt/lists/* \
+    && playwright install --with-deps chromium
 
 RUN python -c "\
 from fastembed import TextEmbedding, SparseTextEmbedding;\
