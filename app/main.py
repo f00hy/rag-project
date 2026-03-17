@@ -1,5 +1,6 @@
 """Application entrypoint for the FastAPI RAG service."""
 
+import logging
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
@@ -16,6 +17,8 @@ config_logging(LOG_LEVEL, LOG_FILENAME, LOG_FILEMODE)
 
 load_dotenv()
 
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
@@ -27,9 +30,17 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     Yields:
         None: Control returns to FastAPI during application runtime.
     """
-    await init_vec_db()
-    await init_rel_db()
-    yield
+    logger.info("Application startup")
+    try:
+        await init_vec_db()
+        await init_rel_db()
+        logger.debug("Application startup complete")
+        yield
+    except Exception:
+        logger.exception("Application startup failed")
+        raise
+    finally:
+        logger.debug("Application shutdown")
 
 
 app = FastAPI(lifespan=lifespan)
