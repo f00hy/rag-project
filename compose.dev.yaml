@@ -18,18 +18,18 @@ services:
       - rag-net
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       start_period: 30s
       interval: 10s
       retries: 5
       timeout: 10s
-    depends_on:
-      redis:
-        condition: service_healthy
-      # postgres:
-      #   condition: service_healthy
-      # qdrant:
-      #   condition: service_healthy
+    # depends_on:
+    #   redis:
+    #     condition: service_healthy
+    #   postgres:
+    #     condition: service_healthy
+    #   qdrant:
+    #     condition: service_healthy
 
 networks:
   rag-net:
