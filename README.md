@@ -12,7 +12,7 @@
 | app/api/schemas.py             |        9 |        0 |        0 |        0 |    100% |           |
 | app/config.py                  |       16 |        0 |        0 |        0 |    100% |           |
 | app/infra/\_\_init\_\_.py      |        0 |        0 |        0 |        0 |    100% |           |
-| app/infra/cfr2.py              |       10 |        2 |        0 |        0 |     80% |     17-18 |
+| app/infra/cfr2.py              |       11 |        2 |        0 |        0 |     82% |     22-23 |
 | app/infra/qdrant.py            |       14 |        7 |        2 |        0 |     44% |     23-65 |
 | app/infra/supabase.py          |       14 |        4 |        0 |        0 |     71% |     28-31 |
 | app/logging\_config.py         |        4 |        0 |        0 |        0 |    100% |           |
@@ -28,7 +28,7 @@
 | app/services/indexing.py       |       39 |        1 |        4 |        0 |     98% |        25 |
 | app/services/reranking.py      |       17 |        0 |        0 |        0 |    100% |           |
 | app/services/searching.py      |       15 |        0 |        2 |        0 |    100% |           |
-| **TOTAL**                      |  **377** |   **24** |   **30** |    **0** | **94%** |           |
+| **TOTAL**                      |  **378** |   **24** |   **30** |    **0** | **94%** |           |
 
 
 ## Setup coverage badge
