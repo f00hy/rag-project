@@ -63,7 +63,8 @@ addopts = [
     "--tb=short",
     "--strict-markers"
 ]
-testpaths = ["app", "tests"]
+testpaths = ["tests"]
+asyncio_mode = "auto"
 
 [tool.coverage.run]
 branch = true
