@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, HttpUrl
 from qdrant_client.models import SparseVector
-from sqlalchemy import Column, DateTime, Text
+from sqlalchemy import Column, DateTime, String, Text
 from sqlmodel import Field, Relationship, SQLModel
 
 
@@ -33,7 +33,7 @@ class Document(SQLModel, table=True):
     title: str
     content_key: str
     content_hash: str
-    source_url: HttpUrl
+    source_url: HttpUrl = Field(sa_column=Column(String))
     scraped_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),
         sa_column=Column(DateTime(timezone=True)),
