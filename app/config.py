@@ -1,7 +1,7 @@
 """Central configuration constants for the RAG pipeline."""
 
 # Logging
-LOG_LEVEL: str = "INFO"
+LOG_LEVEL: str = "DEBUG"
 LOG_FILENAME: str = "app.log"
 LOG_FILEMODE: str = "w"
 
