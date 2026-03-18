@@ -47,6 +47,7 @@ async def ingest(result: CrawlResult) -> None:
     )
 
     # Check if document already exists and content is unchanged
+    logger.info("Checking for existing document: %s", document.id)
     async with rel_db_session() as session:
         existing = await session.get(Document, document.id)
         if existing and existing.content_hash == content_hash:
