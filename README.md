@@ -19,7 +19,7 @@
 | app/main.py                    |       30 |       10 |        0 |        0 |     67% |     33-43 |
 | app/models.py                  |       22 |        0 |        0 |        0 |    100% |           |
 | app/pipelines/\_\_init\_\_.py  |        0 |        0 |        0 |        0 |    100% |           |
-| app/pipelines/ingestion.py     |       41 |        0 |        6 |        0 |    100% |           |
+| app/pipelines/ingestion.py     |       42 |        0 |        6 |        0 |    100% |           |
 | app/pipelines/retrieval.py     |       24 |        0 |        4 |        0 |    100% |           |
 | app/services/\_\_init\_\_.py   |        0 |        0 |        0 |        0 |    100% |           |
 | app/services/chunking.py       |       38 |        0 |        4 |        0 |    100% |           |
@@ -28,7 +28,7 @@
 | app/services/indexing.py       |       39 |        1 |        4 |        0 |     98% |        25 |
 | app/services/reranking.py      |       17 |        0 |        0 |        0 |    100% |           |
 | app/services/searching.py      |       15 |        0 |        2 |        0 |    100% |           |
-| **TOTAL**                      |  **378** |   **24** |   **30** |    **0** | **94%** |           |
+| **TOTAL**                      |  **379** |   **24** |   **30** |    **0** | **94%** |           |
 
 
 ## Setup coverage badge
