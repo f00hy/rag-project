@@ -5,17 +5,18 @@ from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
-from fastapi import FastAPI
-
-from app.api.main import api_router
-from app.config import LOG_FILEMODE, LOG_FILENAME, LOG_LEVEL
-from app.infra.qdrant import init_vec_db
-from app.infra.supabase import init_rel_db
-from app.logging_config import config_logging
-
-config_logging(LOG_LEVEL, LOG_FILENAME, LOG_FILEMODE)
 
 load_dotenv()
+
+from fastapi import FastAPI  # noqa: E402 # Suppress import outside top level linting
+
+from app.api.main import api_router  # noqa: E402
+from app.config import LOG_FILEMODE, LOG_FILENAME, LOG_LEVEL  # noqa: E402
+from app.infra.qdrant import init_vec_db  # noqa: E402
+from app.infra.supabase import init_rel_db  # noqa: E402
+from app.logging_config import config_logging  # noqa: E402
+
+config_logging(LOG_LEVEL, LOG_FILENAME, LOG_FILEMODE)
 
 logger = logging.getLogger(__name__)
 
