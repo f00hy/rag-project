@@ -32,8 +32,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     """
     logger.info("Application startup")
     try:
-        await init_vec_db()
         await init_rel_db()
+        await init_vec_db()
         logger.debug("Application startup complete")
         yield
     except Exception:
