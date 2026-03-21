@@ -13,10 +13,10 @@
 | app/config.py                  |       16 |        0 |        0 |        0 |    100% |           |
 | app/infra/\_\_init\_\_.py      |        0 |        0 |        0 |        0 |    100% |           |
 | app/infra/cfr2.py              |       11 |        2 |        0 |        0 |     82% |     22-23 |
+| app/infra/postgres.py          |       14 |        4 |        0 |        0 |     71% |     28-31 |
 | app/infra/qdrant.py            |       14 |        7 |        2 |        0 |     44% |     22-64 |
-| app/infra/supabase.py          |       14 |        4 |        0 |        0 |     71% |     28-31 |
 | app/logging\_config.py         |        4 |        0 |        0 |        0 |    100% |           |
-| app/main.py                    |       30 |       10 |        0 |        0 |     67% |     33-43 |
+| app/main.py                    |       30 |       10 |        0 |        0 |     67% |     34-44 |
 | app/models.py                  |       22 |        0 |        0 |        0 |    100% |           |
 | app/pipelines/\_\_init\_\_.py  |        0 |        0 |        0 |        0 |    100% |           |
 | app/pipelines/ingestion.py     |       42 |        0 |        6 |        0 |    100% |           |
