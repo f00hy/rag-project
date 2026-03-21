@@ -85,3 +85,4 @@ volumes:
 
 networks:
   rag-net:
+    name: rag-net
