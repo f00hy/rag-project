@@ -1,14 +1,14 @@
 """Application entrypoint for the FastAPI RAG service."""
 
-import logging
-from collections.abc import AsyncGenerator
-from contextlib import asynccontextmanager
-
 from dotenv import load_dotenv
 
 load_dotenv()
 
-from fastapi import FastAPI  # noqa: E402 # Suppress import outside top level linting
+import logging  # noqa: E402  # Suppress import outside top level linting
+from collections.abc import AsyncGenerator  # noqa: E402
+from contextlib import asynccontextmanager  # noqa: E402
+
+from fastapi import FastAPI  # noqa: E402
 
 from app.api.main import api_router  # noqa: E402
 from app.config import LOG_FILEMODE, LOG_FILENAME, LOG_LEVEL  # noqa: E402
