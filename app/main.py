@@ -12,8 +12,8 @@ from fastapi import FastAPI  # noqa: E402 # Suppress import outside top level li
 
 from app.api.main import api_router  # noqa: E402
 from app.config import LOG_FILEMODE, LOG_FILENAME, LOG_LEVEL  # noqa: E402
+from app.infra.postgres import init_rel_db  # noqa: E402
 from app.infra.qdrant import init_vec_db  # noqa: E402
-from app.infra.supabase import init_rel_db  # noqa: E402
 from app.logging_config import config_logging  # noqa: E402
 
 config_logging(LOG_LEVEL, LOG_FILENAME, LOG_FILEMODE)
@@ -33,8 +33,8 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     """
     logger.info("Application startup")
     try:
-        await init_rel_db()
         await init_vec_db()
+        await init_rel_db()
         logger.debug("Application startup complete")
         yield
     except Exception:

@@ -8,7 +8,7 @@ from uuid import NAMESPACE_URL, uuid5
 from crawl4ai.models import CrawlResult
 from qdrant_client import models
 
-from app.infra.supabase import rel_db_session
+from app.infra.postgres import rel_db_session
 from app.models import Document, ParentChunk
 from app.services.chunking import chunk
 from app.services.embedding import embed_chunks

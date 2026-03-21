@@ -28,14 +28,14 @@ logger = logging.getLogger(__name__)
 
 async def main(url: str, max_pages: int) -> None:
     """Run the full crawl-and-ingest pipeline for a given URL."""
+    from app.infra.postgres import init_rel_db
     from app.infra.qdrant import init_vec_db
-    from app.infra.supabase import init_rel_db
     from app.pipelines.ingestion import ingest
     from app.services.crawling import crawl
 
     logger.info("Initializing infrastructure...")
-    await init_rel_db()
     await init_vec_db()
+    await init_rel_db()
 
     pages_crawled = 0
     pages_failed = 0

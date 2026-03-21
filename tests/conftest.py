@@ -69,7 +69,7 @@ def patch_vec_db(monkeypatch, vec_db):
 @pytest.fixture
 def patch_rel_db(monkeypatch, rel_db):
     """Replace ``rel_db_session`` in all modules that import it."""
-    monkeypatch.setattr("app.infra.supabase.rel_db_session", rel_db)
+    monkeypatch.setattr("app.infra.postgres.rel_db_session", rel_db)
     monkeypatch.setattr("app.services.indexing.rel_db_session", rel_db)
     monkeypatch.setattr("app.pipelines.ingestion.rel_db_session", rel_db)
     monkeypatch.setattr("app.pipelines.retrieval.rel_db_session", rel_db)

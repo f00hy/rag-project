@@ -4,7 +4,7 @@ import logging
 
 from sqlmodel import col, select
 
-from app.infra.supabase import rel_db_session
+from app.infra.postgres import rel_db_session
 from app.models import ParentChunk
 from app.services.embedding import embed_query
 from app.services.reranking import rerank

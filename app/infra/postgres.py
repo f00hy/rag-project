@@ -1,4 +1,4 @@
-"""Relational database connection and initialization for Supabase."""
+"""Relational database connection and initialization for PostgreSQL."""
 
 import logging
 from os import getenv
@@ -15,7 +15,7 @@ from app.models import (
 logger = logging.getLogger(__name__)
 
 _engine: AsyncEngine = create_async_engine(
-    getenv("SUPABASE_URL", "sqlite+aiosqlite://")
+    getenv("POSTGRES_URL", "sqlite+aiosqlite://")
 )
 
 rel_db_session = async_sessionmaker(

@@ -10,8 +10,7 @@ services:
     env_file:
       - .env
     ports:
-      # Avoid listening on IPV6 addresses due to WSL2 limitations
-      - "127.0.0.1:${DEV_PORT}:8000"
+      - ${DEV_PORT}:8000
     volumes:
       - ./app:/app/app
       - ./tests:/app/tests
@@ -24,17 +23,13 @@ services:
       interval: 10s
       retries: 5
       timeout: 10s
-    # depends_on:
+    depends_on:
     #   redis:
     #     condition: service_healthy
-    #   postgres:
-    #     condition: service_healthy
+      postgres:
+        condition: service_healthy
     #   qdrant:
     #     condition: service_healthy
 
 networks:
   rag-net:
-    enable_ipv6: true
-    ipam:
-      config:
-        - subnet: "fd00:dead:beef::/48"

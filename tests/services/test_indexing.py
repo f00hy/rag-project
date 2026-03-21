@@ -1,4 +1,4 @@
-"""Tests for the indexing services (R2, Qdrant, Supabase)."""
+"""Tests for the indexing services (R2, Qdrant, PostgreSQL)."""
 
 from uuid import uuid4
 

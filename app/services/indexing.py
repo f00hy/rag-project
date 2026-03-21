@@ -9,8 +9,8 @@ from tenacity import RetryCallState, retry, stop_after_attempt, wait_exponential
 
 from app.config import BUCKET_NAME, COLLECTION_NAME
 from app.infra.cfr2 import obj_store_client
+from app.infra.postgres import rel_db_session
 from app.infra.qdrant import vec_db_client
-from app.infra.supabase import rel_db_session
 from app.models import Document, ParentChunk
 
 logger = logging.getLogger(__name__)
@@ -101,7 +101,7 @@ async def index_rel_db(
     document: Document,
     existing: bool = False,
 ) -> None:
-    """Persists a document and its parent chunks in Supabase.
+    """Persists a document and its parent chunks in PostgreSQL.
 
     When `existing` is True, stale parent chunks are deleted and the
     document is merged instead of inserted.

@@ -72,7 +72,7 @@ def _fake_embeddings(children):
 async def test_ingest_stores_across_all_backends(
     monkeypatch, patch_vec_db, patch_rel_db, patch_obj_store, vec_db, rel_db, obj_store
 ):
-    """ingest() stores data in R2, Qdrant, and Supabase."""
+    """ingest() stores data in R2, Qdrant, and PostgreSQL."""
     parents, children = _fake_chunks()
     monkeypatch.setattr(
         "app.pipelines.ingestion.chunk",
