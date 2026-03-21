@@ -17,6 +17,8 @@ from pydantic import HttpUrl
 
 from app.config import MAX_PAGES
 
+_BFS_BATCH_BUFFER = 2
+
 logger = logging.getLogger(__name__)
 
 browser_config = BrowserConfig(headless=True, verbose=False)
@@ -46,8 +48,8 @@ def _make_strategy_and_config(
     """
     strategy = BFSDeepCrawlStrategy(
         max_depth=3,
+        max_pages=max_pages + _BFS_BATCH_BUFFER,
         include_external=False,
-        max_pages=max_pages,
     )
     run_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
@@ -81,7 +83,7 @@ async def crawl(
         "Starting BFS crawl from %s (max_depth=%d, max_pages=%d)",
         start_url,
         strategy.max_depth,
-        strategy.max_pages,
+        max_pages,
     )
     page_count = 0
     async with AsyncWebCrawler(config=browser_config) as crawler:
@@ -94,4 +96,7 @@ async def crawl(
                     "Failed to crawl %s: %s", result.url, result.error_message
                 )
             yield result
+            if page_count >= max_pages:
+                logger.debug("Reached max_pages=%d, stopping crawl", max_pages)
+                break
     logger.debug("Crawl finished — %d pages crawled successfully", page_count)
