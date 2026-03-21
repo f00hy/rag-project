@@ -21,6 +21,7 @@ A Retrieval-Augmented Generation (RAG) pipeline service built with FastAPI. Craw
   - [Docker Development (with hot-reload)](#docker-development-with-hot-reload)
   - [Production](#production)
   - [Smoke Test](#smoke-test)
+  - [Usage](#usage)
 - [TODO](#todo)
 
 ## Architecture
@@ -227,11 +228,24 @@ docker compose up -d
 
 ### Smoke Test
 
+Runs the full crawl-and-ingest pipeline for a given URL outside of the API server.
+
 ```bash
 uv run python scripts/smoke_crawl.py <url> --max-pages 5
 ```
 
-Runs the full crawl-and-ingest pipeline for a given URL outside of the API server.
+### Usage
+
+With the server running, trigger a crawl via the API:
+
+```bash
+curl -X POST http://localhost:8000/crawl/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://docs.astral.sh/uv",
+    "max_pages": 3
+  }'
+```
 
 ## TODO
 - [ ] Query processing
