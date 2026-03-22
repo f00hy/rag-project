@@ -35,7 +35,7 @@ async def ingest(result: CrawlResult) -> None:
         return
     content_hash = sha256(content.encode("utf-8")).hexdigest()
     parsed_url = urlparse(result.url)
-    content_key = f"{parsed_url.netloc}{parsed_url.path}".replace("/", "_")
+    content_key = f"{parsed_url.netloc}{parsed_url.path.rstrip('/')}".replace("/", "_")
 
     # Initialize document object
     document = Document(
