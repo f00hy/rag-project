@@ -17,6 +17,10 @@ from pydantic import HttpUrl
 
 from app.config import MAX_PAGES
 
+# Buffer needed because crawl4ai's BFS streaming stops before yielding
+# when reaching a max_pages limit of N
+BFS_STREAM_BUFFER = 1
+
 logger = logging.getLogger(__name__)
 
 browser_config = BrowserConfig(headless=True, verbose=False)
@@ -46,7 +50,7 @@ def _make_strategy_and_config(
     """
     strategy = BFSDeepCrawlStrategy(
         max_depth=3,
-        max_pages=max_pages,
+        max_pages=max_pages + BFS_STREAM_BUFFER,
         include_external=False,
     )
     run_config = CrawlerRunConfig(
@@ -81,7 +85,7 @@ async def crawl(
         "Starting BFS crawl from %s (max_depth=%d, max_pages=%d)",
         start_url,
         strategy.max_depth,
-        strategy.max_pages,
+        max_pages,
     )
     page_count = 0
     async with AsyncWebCrawler(config=browser_config) as crawler:
@@ -94,6 +98,4 @@ async def crawl(
                     "Failed to crawl %s: %s", result.url, result.error_message
                 )
             yield result
-    # page_count should be equal to max_pages + 1
-    # because the start_url is not counted in BFSDeepCrawlStrategy
     logger.debug("Crawl finished — %d pages crawled successfully", page_count)

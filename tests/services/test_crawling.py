@@ -4,13 +4,19 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 from pydantic import HttpUrl
 
-from app.services.crawling import crawl
+from app.services.crawling import _make_strategy_and_config, crawl
 
 
 async def _fake_results(results):
     """Yield pre-built results as an async iterator."""
     for r in results:
         yield r
+
+
+def test_bfs_strategy_max_pages_includes_stream_yield_buffer():
+    """BFS strategy max_pages includes stream yield buffer."""
+    strategy, _ = _make_strategy_and_config(3)
+    assert strategy.max_pages == 4
 
 
 async def test_crawl_yields_all_results():
