@@ -17,7 +17,7 @@ from pydantic import HttpUrl
 
 from app.config import MAX_PAGES
 
-_BFS_BATCH_BUFFER = 2
+_BFS_BATCH_BUFFER = 1
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +88,8 @@ async def crawl(
     page_count = 0
     async with AsyncWebCrawler(config=browser_config) as crawler:
         async for result in await crawler.arun(url=str(start_url), config=run_config):
+            if page_count >= max_pages:
+                continue
             if result.success:
                 page_count += 1
                 logger.debug("Crawled page %d: %s", page_count, result.url)
@@ -97,6 +99,7 @@ async def crawl(
                 )
             yield result
             if page_count >= max_pages:
-                logger.debug("Reached max_pages=%d, stopping crawl", max_pages)
-                break
+                logger.debug(
+                    "Reached max_pages=%d, draining remaining results", max_pages
+                )
     logger.debug("Crawl finished — %d pages crawled successfully", page_count)
