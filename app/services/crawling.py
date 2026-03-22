@@ -17,8 +17,6 @@ from pydantic import HttpUrl
 
 from app.config import MAX_PAGES
 
-_BFS_BATCH_BUFFER = 1
-
 logger = logging.getLogger(__name__)
 
 browser_config = BrowserConfig(headless=True, verbose=False)
@@ -48,7 +46,7 @@ def _make_strategy_and_config(
     """
     strategy = BFSDeepCrawlStrategy(
         max_depth=3,
-        max_pages=max_pages + _BFS_BATCH_BUFFER,
+        max_pages=max_pages,
         include_external=False,
     )
     run_config = CrawlerRunConfig(
