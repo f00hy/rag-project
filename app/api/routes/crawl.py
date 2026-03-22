@@ -36,6 +36,12 @@ async def crawl_endpoint(request: CrawlRequest) -> CrawlResponse:
     try:
         async for result in crawl(start_url=request.url, max_pages=request.max_pages):
             if result.success:
+                if pages_crawled >= request.max_pages:
+                    logger.debug(
+                        "Reached max_pages=%d, draining remaining results",
+                        request.max_pages,
+                    )
+                    continue
                 await ingest(result)
                 pages_crawled += 1
             else:

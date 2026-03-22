@@ -81,13 +81,11 @@ async def crawl(
         "Starting BFS crawl from %s (max_depth=%d, max_pages=%d)",
         start_url,
         strategy.max_depth,
-        max_pages,
+        strategy.max_pages,
     )
     page_count = 0
     async with AsyncWebCrawler(config=browser_config) as crawler:
         async for result in await crawler.arun(url=str(start_url), config=run_config):
-            if page_count >= max_pages:
-                continue
             if result.success:
                 page_count += 1
                 logger.debug("Crawled page %d: %s", page_count, result.url)
@@ -96,8 +94,6 @@ async def crawl(
                     "Failed to crawl %s: %s", result.url, result.error_message
                 )
             yield result
-            if page_count >= max_pages:
-                logger.debug(
-                    "Reached max_pages=%d, draining remaining results", max_pages
-                )
+    # page_count should be equal to max_pages + 1
+    # because the start_url is not counted in BFSDeepCrawlStrategy
     logger.debug("Crawl finished — %d pages crawled successfully", page_count)
