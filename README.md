@@ -239,7 +239,8 @@ uv run python scripts/smoke_crawl.py <url> --max-pages 5
 With the server running, trigger a crawl via the API:
 
 ```bash
-curl -X POST http://localhost:8000/crawl/ \
+curl -w "\n" \
+  -X POST http://localhost:8000/crawl/ \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://docs.astral.sh/uv",
