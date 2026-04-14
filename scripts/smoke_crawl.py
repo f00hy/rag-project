@@ -9,6 +9,7 @@ Performs: crawl -> chunk -> embed -> index (object store, vector DB, relational 
 import argparse
 import asyncio
 import logging
+import os
 import time
 from sys import stdout
 
@@ -16,6 +17,8 @@ from dotenv import load_dotenv
 from pydantic import HttpUrl
 
 load_dotenv()
+
+os.environ["POSTGRES_URL"] = os.getenv("POSTGRES_URL_LOCAL", "sqlite+aiosqlite://")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -83,4 +86,6 @@ if __name__ == "__main__":
         help="Maximum pages to crawl (default: 5)",
     )
     args = parser.parse_args()
+    if args.max_pages <= 0:
+        parser.error("--max-pages must be a positive integer")
     asyncio.run(main(args.url, args.max_pages))
