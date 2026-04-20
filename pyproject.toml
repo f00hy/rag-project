@@ -7,15 +7,13 @@ requires-python = ">=3.12"
 dependencies = [
     "aioboto3>=7.0.0",
     "aiosqlite>=0.22.1",
-    "arq>=0.26.3",
     "asyncpg>=0.31.0",
     "chonkie[tokenizers]>=1.5.2",
-    "crawl4ai[pdf]>=0.7.8",
+    "crawl4ai>=0.7.8",
     "fastapi[standard]>=0.128.0",
-    "logfire>=4.18.0",
-    "pydantic-ai>=1.43.0",
+    "google-genai>=1.59.0",
+    "python-dotenv>=1.2.1",
     "qdrant-client[fastembed]>=1.16.2",
-    "redis[hiredis]>=5.3.1",
     "sqlmodel>=0.0.31",
 ]
 
@@ -31,8 +29,7 @@ tool = [
     "pre-commit>=4.5.1",
     "ruff>=0.14.13",
     "ty>=0.0.12",
-    "types-aioboto3[aioboto3,s3]>=9.6.0.post2",
-    "types-redis>=4.6.0.20241004",
+    "types-aiobotocore-s3>=2.25.1",
 ]
 
 [tool.uv]
