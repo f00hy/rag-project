@@ -6,10 +6,11 @@
 |------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
 | app/\_\_init\_\_.py            |        0 |        0 |        0 |        0 |    100% |           |
 | app/api/\_\_init\_\_.py        |        0 |        0 |        0 |        0 |    100% |           |
-| app/api/main.py                |        4 |        0 |        0 |        0 |    100% |           |
+| app/api/main.py                |        5 |        0 |        0 |        0 |    100% |           |
 | app/api/routes/\_\_init\_\_.py |        0 |        0 |        0 |        0 |    100% |           |
 | app/api/routes/crawl.py        |       28 |        0 |        6 |        0 |    100% |           |
-| app/api/schemas.py             |        9 |        0 |        0 |        0 |    100% |           |
+| app/api/routes/query.py        |       23 |        0 |        0 |        0 |    100% |           |
+| app/api/schemas.py             |       19 |        0 |        0 |        0 |    100% |           |
 | app/config.py                  |       16 |        0 |        0 |        0 |    100% |           |
 | app/infra/\_\_init\_\_.py      |        0 |        0 |        0 |        0 |    100% |           |
 | app/infra/cfr2.py              |       11 |        2 |        0 |        0 |     82% |     22-23 |
@@ -19,6 +20,7 @@
 | app/main.py                    |       30 |       10 |        0 |        0 |     67% |     34-44 |
 | app/models.py                  |       22 |        0 |        0 |        0 |    100% |           |
 | app/pipelines/\_\_init\_\_.py  |        0 |        0 |        0 |        0 |    100% |           |
+| app/pipelines/generation.py    |       64 |        7 |        8 |        0 |     88% |   120-127 |
 | app/pipelines/ingestion.py     |       42 |        0 |        6 |        0 |    100% |           |
 | app/pipelines/retrieval.py     |       24 |        0 |        4 |        0 |    100% |           |
 | app/services/\_\_init\_\_.py   |        0 |        0 |        0 |        0 |    100% |           |
@@ -28,7 +30,7 @@
 | app/services/indexing.py       |       39 |        1 |        4 |        0 |     98% |        25 |
 | app/services/reranking.py      |       17 |        0 |        0 |        0 |    100% |           |
 | app/services/searching.py      |       15 |        0 |        2 |        0 |    100% |           |
-| **TOTAL**                      |  **383** |   **24** |   **32** |    **0** | **94%** |           |
+| **TOTAL**                      |  **481** |   **31** |   **40** |    **0** | **93%** |           |
 
 
 ## Setup coverage badge
