@@ -302,6 +302,20 @@ wheels = [
 ]
 
 [[package]]
+name = "boto3"
+version = "1.42.30"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "botocore" },
+    { name = "jmespath" },
+    { name = "s3transfer" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/42/79/2dac8b7cb075cfa43908ee9af3f8ee06880d84b86013854c5cca8945afac/boto3-1.42.30.tar.gz", hash = "sha256:ba9cd2f7819637d15bfbeb63af4c567fcc8a7dcd7b93dd12734ec58601169538", size = 112809, upload-time = "2026-01-16T20:37:23.636Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/52/b3/2c0d828c9f668292e277ca5232e6160dd5b4b660a3f076f20dd5378baa1e/boto3-1.42.30-py3-none-any.whl", hash = "sha256:d7e548bea65e0ae2c465c77de937bc686b591aee6a352d5a19a16bc751e591c1", size = 140573, upload-time = "2026-01-16T20:37:22.089Z" },
+]
+
+[[package]]
 name = "botocore"
 version = "1.42.30"
 source = { registry = "https://pypi.org/simple" }
@@ -3030,6 +3044,7 @@ dependencies = [
     { name = "aioboto3" },
     { name = "aiosqlite" },
     { name = "asyncpg" },
+    { name = "boto3" },
     { name = "chonkie", extra = ["tokenizers"] },
     { name = "crawl4ai" },
     { name = "fastapi", extra = ["standard"] },
@@ -3059,6 +3074,7 @@ requires-dist = [
     { name = "aioboto3", specifier = ">=7.0.0" },
     { name = "aiosqlite", specifier = ">=0.22.1" },
     { name = "asyncpg", specifier = ">=0.31.0" },
+    { name = "boto3", specifier = ">=1.40.0" },
     { name = "chonkie", extras = ["tokenizers"], specifier = ">=1.5.2" },
     { name = "crawl4ai", specifier = ">=0.7.8" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.128.0" },
@@ -3440,6 +3456,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/6a/c5/abd840d4132fd51a12f594934af5eba1d5d27298a6f5b5d6c3be45301caf/ruff-0.14.13-py3-none-win32.whl", hash = "sha256:ef720f529aec113968b45dfdb838ac8934e519711da53a0456038a0efecbd680", size = 12919024, upload-time = "2026-01-15T20:14:43.647Z" },
     { url = "https://files.pythonhosted.org/packages/c2/55/6384b0b8ce731b6e2ade2b5449bf07c0e4c31e8a2e68ea65b3bafadcecc5/ruff-0.14.13-py3-none-win_amd64.whl", hash = "sha256:6070bd026e409734b9257e03e3ef18c6e1a216f0435c6751d7a8ec69cb59abef", size = 14097887, upload-time = "2026-01-15T20:15:01.48Z" },
     { url = "https://files.pythonhosted.org/packages/4d/e1/7348090988095e4e39560cfc2f7555b1b2a7357deba19167b600fdf5215d/ruff-0.14.13-py3-none-win_arm64.whl", hash = "sha256:7ab819e14f1ad9fe39f246cfcc435880ef7a9390d81a2b6ac7e01039083dd247", size = 13080224, upload-time = "2026-01-15T20:14:45.853Z" },
+]
+
+[[package]]
+name = "s3transfer"
+version = "0.16.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "botocore" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/05/04/74127fc843314818edfa81b5540e26dd537353b123a4edc563109d8f17dd/s3transfer-0.16.0.tar.gz", hash = "sha256:8e990f13268025792229cd52fa10cb7163744bf56e719e0b9cb925ab79abf920", size = 153827, upload-time = "2025-12-01T02:30:59.114Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fc/51/727abb13f44c1fcf6d145979e1535a35794db0f6e450a0cb46aa24732fe2/s3transfer-0.16.0-py3-none-any.whl", hash = "sha256:18e25d66fed509e3868dc1572b3f427ff947dd2c56f844a5bf09481ad3f3b2fe", size = 86830, upload-time = "2025-12-01T02:30:57.729Z" },
 ]
 
 [[package]]
