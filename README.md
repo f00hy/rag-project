@@ -6,7 +6,7 @@ A Retrieval-Augmented Generation (RAG) pipeline service built with FastAPI. Craw
 
 - [Architecture](#architecture)
   - [Ingestion Pipeline](#ingestion-pipeline)
-  - [Retrieval Pipeline](#retrieval-pipeline-implemented-not-yet-exposed-via-api)
+  - [Retrieval and Generation Pipeline](#retrieval-and-generation-pipeline)
 - [Design Decisions](#design-decisions)
 - [Data Model](#data-model)
 - [ML Models](#ml-models)
@@ -42,13 +42,15 @@ API  →  Pipelines  →  Services  →  Infrastructure
 ```mermaid
 flowchart LR
     Client -->|"POST /crawl"| FastAPI
+    Client -->|"POST /query"| FastAPI
 
     subgraph ingestion [Ingestion Pipeline]
         Crawl4AI --> Chunking --> Embedding --> Indexing
     end
 
-    subgraph retrieval ["Retrieval Pipeline"]
+    subgraph retrieval ["Retrieval + Generation Pipeline"]
         QueryEmbed["Query Embedding"] --> HybridSearch["Hybrid Search"] --> ParentFetch["Parent Chunk Fetch"] --> Reranking
+        Reranking --> LLMAnswer["LLM Answer Synthesis"]
     end
 
     FastAPI --> Crawl4AI
@@ -75,14 +77,17 @@ Triggered via `POST /crawl`. The request flows from `app/api/routes/crawl.py` in
    - **PostgreSQL** -- `Document` and `ParentChunk` records via SQLModel
 6. **Stale-data cleaning** -- On content change, deletes old vectors from Qdrant and old parent chunks from PostgreSQL before upserting the updated data.
 
-### Retrieval Pipeline (implemented, not yet exposed via API)
+### Retrieval and Generation Pipeline
 
-Defined in `app/pipelines/retrieval.py`. The pipeline logic is fully implemented but there is no API route wired to it yet (see [TODO](#todo)):
+The query flow is exposed via `POST /query/` in `app/api/routes/query.py`. It orchestrates retrieval and answer generation:
 
 1. **Query Embedding** -- Same dual-encoder as ingestion (dense + sparse).
 2. **Hybrid Search** (`app/services/searching.py`) -- Qdrant's `query_points_groups` with dense + sparse prefetch, RRF fusion, grouped by `parent_id`.
 3. **Parent Chunk Fetch** -- Loads full parent chunk texts from PostgreSQL by the IDs returned from search.
 4. **Reranking** (`app/services/reranking.py`) -- Cross-encoder (Jina Reranker v1 Turbo) re-scores candidates and returns the top-k (3) parent chunks.
+5. **Generation** (`app/pipelines/generation.py`) -- Synthesizes a grounded answer from retrieved context and returns citations (`parent_chunk_id`, `document_id`, `source_url`).
+
+If `GEMINI_API_KEY` is not set or generation fails, the pipeline returns a deterministic fallback answer built from the top retrieved context.
 
 ## Design Decisions
 
@@ -131,9 +136,11 @@ app/
     main.py            # Router aggregator
     schemas.py         # Request/response models
     routes/crawl.py    # POST /crawl endpoint
+    routes/query.py    # POST /query endpoint
   pipelines/
     ingestion.py       # Crawl result -> chunk -> embed -> index
     retrieval.py       # Query -> embed -> search -> rerank
+    generation.py      # Retrieve context -> generate answer + citations
   services/
     crawling.py        # BFS web crawling
     chunking.py        # Parent-child chunking
@@ -147,6 +154,7 @@ app/
     cfr2.py            # Cloudflare R2 S3 client
 scripts/
   smoke_crawl.py       # Standalone crawl+ingest script
+  smoke_retrieve.py    # Standalone retrieval smoke test
 tests/                 # Pytest suite with in-memory stubs
 ```
 
@@ -228,15 +236,19 @@ docker compose up -d
 
 ### Smoke Test
 
-Runs the full crawl-and-ingest pipeline for a given URL outside of the API server.
+Run smoke scripts outside the API server to validate each stage:
 
 ```bash
 uv run python scripts/smoke_crawl.py <url> --max-pages 5
 ```
 
+```bash
+uv run python scripts/smoke_retrieve.py "<query>" --limit 5
+```
+
 ### Usage
 
-With the server running, trigger a crawl via the API:
+With the server running, first crawl and index at least one source:
 
 ```bash
 curl -w "\n" \
@@ -248,8 +260,18 @@ curl -w "\n" \
   }'
 ```
 
+Then query the indexed data:
+
+```bash
+curl -w "\n" \
+  -X POST http://localhost:8000/query/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "What is uv?"
+  }'
+```
+
+If you query before crawling, the response can contain empty retrieval context and a fallback answer.
+
 ## TODO
-- [ ] Query processing
-- [ ] Answer generation
-- [ ] API endpoints
 - [ ] Testing & Performance Evaluation
